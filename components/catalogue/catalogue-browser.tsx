@@ -60,7 +60,7 @@ export function CatalogueBrowser({
   locale?: Locale;
 }) {
   const fr = locale === 'fr';
-  const specialtyLabels: Record<string, string> = { medicine: 'Médecine', pharmacy: 'Pharmacie', 'dental-surgery': 'Chirurgie dentaire' };
+  const specialtyLabels: Record<string, string> = { medicine: 'Médecine', pharmacy: 'Pharmacie', 'dental-surgery': 'Médecine dentaire' };
   const [specialty, setSpecialty] = useState<Filter>(lockedSpecialty ?? null);
   const [year, setYear] = useState<number | null>(lockedYear ?? null);
 

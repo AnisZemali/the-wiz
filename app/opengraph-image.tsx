@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 export const dynamic = "force-static";
 
 export const alt =
-  "The Wiz — premium study notebooks for medicine, pharmacy and dental surgery";
+  "The Wiz — premium study notebooks for medicine, pharmacy and dental medicine";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

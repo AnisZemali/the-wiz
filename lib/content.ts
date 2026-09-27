@@ -15,11 +15,11 @@ export const site = {
   tagline:
     "The notebooks built to help medical, pharmacy and dental students study smarter.",
   url: process.env.NEXT_PUBLIC_SITE_URL || process.env.URL || process.env.DEPLOY_PRIME_URL || (githubPages ? "https://aniszemali.github.io/the-wiz" : "https://thewiz.example.com"),
-  email: "hello@thewiz.com",
-  instagram: "https://instagram.com/thewiz.notebook",
-  tiktok: "https://tiktok.com/@thewiz.notebook",
-  instagramHandle: "@thewiz.notebook",
-  tiktokHandle: "@thewiz.notebook",
+  email: "thewiz.dz@gmail.com",
+  instagram: "https://instagram.com/thewiz.dz",
+  tiktok: "https://tiktok.com/@thewiz.dz",
+  instagramHandle: "@thewiz.dz",
+  tiktokHandle: "@thewiz.dz",
 } as const;
 
 /**
@@ -111,7 +111,7 @@ export const insideSpreads = [
 export const audience = {
   heading: "Perfect if you...",
   items: [
-    "are studying medicine, pharmacy or dental surgery",
+    "are studying medicine, pharmacy or dental medicine",
     "want organized notes",
     "don't want to rewrite lectures",
     "prefer understanding instead of memorizing",
@@ -141,7 +141,6 @@ export const about = {
     "Created by a medical student who wanted a notebook that combined concise summaries with space to build personal understanding.",
   name: "The Wiz",
   role: "Founder — Medical student",
-  portrait: assetPath("/portrait.svg"),
 } as const;
 
 export const product = {
@@ -171,7 +170,7 @@ export const faqs = [
   {
     question: "Which years and specialties are covered?",
     answer:
-      "The series is being written across medicine, pharmacy and dental surgery, year by year and subject by subject. In medicine that means years one to six — the seventh is spent in hospital, so it has no notebook. One edition ships today and the rest are in preparation; you can browse everything and join the list for any of them.",
+      "The series is being written across medicine, pharmacy and dental medicine, year by year and subject by subject. In medicine that means years one to six — the seventh is spent in hospital, so it has no notebook. One edition ships today and the rest are in preparation; you can browse everything and join the list for any of them.",
   },
   {
     question: "How many pages?",
@@ -198,6 +197,6 @@ export const faqs = [
 export const series = {
   eyebrow: "The series",
   title: "Written year by year.",
-  body: "Each notebook covers one subject of one year. They are released as they are finished, starting with first-year medicine and working outward through the programme — and beyond medicine into pharmacy and dental surgery.",
+  body: "Each notebook covers one subject of one year. They are released as they are finished, starting with first-year medicine and working outward through the programme — and beyond medicine into pharmacy and dental medicine.",
   cta: { label: "Browse the catalogue", href: "/books" },
 } as const;

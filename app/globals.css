@@ -185,3 +185,26 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Printed course books and touch-friendly preview. */
+.wiz-cover { position:relative; aspect-ratio: .707; width:100%; max-width:360px; margin:auto; background:#faf9f6; border:1px solid #d2d0ca; border-radius:3px 9px 9px 3px; box-shadow:5px 5px 0 #e6e4df,7px 7px 0 #cccac5,14px 18px 28px #00000014; display:flex; flex-direction:column; justify-content:space-between; padding:12% 9% 10% 15%; color:#151515; }
+.wiz-cover-brand {font-weight:600; font-size:clamp(17px,2.5vw,26px); letter-spacing:-.06em}
+.wiz-cover-brand span {display:block;font-size:8px;letter-spacing:.14em;margin-top:8px;font-weight:400}
+.wiz-cover-title p {font-size:10px; margin-bottom:15px}
+.wiz-cover-title h2 {font-size:clamp(17px,2.1vw,28px);font-weight:500;line-height:1.2;overflow-wrap:anywhere}
+.wiz-cover-rule {width:40px;height:2px;background:#111;margin-top:22px}
+.wiz-cover-bottom {font-size:8px;display:flex;justify-content:space-between;gap:8px}
+.wiz-coils {position:absolute;left:-12px;top:5%;bottom:5%;width:24px;display:flex;flex-direction:column;justify-content:space-around;z-index:2;pointer-events:none}
+.wiz-coils i {display:block;width:25px;height:10px;border:3px solid #151515;border-radius:50%;background:linear-gradient(180deg,#666,#111 45%,#333);box-shadow:0 2px 2px #0004}
+.wiz-reader {max-width:420px;margin:auto;perspective:1000px;touch-action:pan-y;transition:transform .5s;transform:rotateY(-5deg)}
+.wiz-reader .wiz-cover {max-width:none}
+.wiz-turned {transform:perspective(1000px) rotateY(-27deg) rotateZ(2deg)}
+.wiz-page {position:relative;background:white;box-shadow:6px 6px 0 #ddd,12px 14px 24px #0002;animation:wiz-page-in .22s ease-out}
+.wiz-page img {display:block;width:100%;height:auto}
+.wiz-page-number {display:block;text-align:center;padding:8px;font-size:10px;color:#666}
+.wiz-control {min-height:44px;border:1px solid #bbb;border-radius:999px;padding:10px 12px;font-size:13px;background:#fff;color:#111}
+.wiz-control:disabled {opacity:.35;cursor:not-allowed}
+.wiz-control:hover:not(:disabled) {background:#f0f0f0}
+@keyframes wiz-page-in {from {opacity:.4;transform:rotateY(-8deg)} to {opacity:1;transform:rotateY(0)}}
+@media(prefers-reduced-motion:reduce){.wiz-reader {transition:none}.wiz-page {animation:none}}
+@media(max-width:380px){.wiz-cover-title h2 {font-size:17px} header nav.shell {gap:7px;padding-inline:12px} header nav .type-display {font-size:14px} header nav a {font-size:12px}}

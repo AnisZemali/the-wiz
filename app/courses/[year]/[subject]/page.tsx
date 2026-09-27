@@ -1,3 +1,4 @@
+import { CourseProduct } from '@/components/catalogue/course-product';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -10,17 +11,11 @@ export function generateStaticParams() { return courses.map(c => ({ year: `year-
 async function resolve(params: Promise<Params>) { const { year, subject } = await params; return courses.find(c => `year-${c.year}` === year && c.slug === subject); }
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const course = await resolve(params);
-  return course ? { title: `${course.title} · MedWIZ preview`, description: `Read the first ${course.previewPages} pages of ${course.title}, medicine year ${course.year}.`, alternates: { canonical: courseHref(course) } } : {};
+  return course ? { title: `${course.title} · THE WIZ preview`, description: `Read the first ${course.previewPages} pages of ${course.title}, medicine year ${course.year}.`, alternates: { canonical: courseHref(course) } } : {};
 }
 export default async function CoursePage({ params }: { params: Promise<Params> }) {
   const course = await resolve(params);
   if (!course) notFound();
-  return <><CataloguePageHeader crumbs={[{ label: 'The Wiz', href: '/' }, { label: 'Courses', href: '/courses' }, { label: `Year ${course.year}`, href: `/courses/year-${course.year}` }, { label: course.title }]} eyebrow={`MedWIZ · Year ${course.year} · ${course.category}`} title={<span lang="fr">{course.title}</span>} intro={`A look inside: pages 1–${course.previewPages} of ${course.pages}. Take your time, get a feel for the notes, and make your next study session count.`} />
-    <section className="shell pb-28" aria-label="Course preview">
-      <div className="overflow-hidden rounded-2xl border border-ink-12 bg-ink-04">
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-ink-12 bg-paper p-5 sm:px-8"><p className="text-sm">Preview <span className="ml-2 text-ink-56">· First {course.previewPages} pages only</span></p><a href={course.previewUrl} target="_blank" rel="noopener noreferrer" className="text-sm underline underline-offset-4">Open preview PDF ↗</a></div>
-        <object data={`${course.previewUrl}#view=FitH`} type="application/pdf" aria-label={`${course.title}: first ${course.previewPages} pages`} className="block h-[75vh] min-h-96 w-full"><div className="px-6 py-24 text-center"><p>Your browser can open this preview in a separate tab.</p><a href={course.previewUrl} target="_blank" rel="noopener noreferrer" className="mt-6 inline-block rounded-full bg-ink px-6 py-3 text-paper">Read the {course.previewPages}-page preview ↗</a></div></object>
-      </div>
-      <div className="mt-6 flex flex-wrap justify-between gap-4 text-sm text-ink-56"><p>You’re viewing a limited preview of this course.</p><Link href={`/courses/year-${course.year}`} className="text-ink underline underline-offset-4">← Back to year {course.year}</Link></div>
-    </section></>;
+  return <><CataloguePageHeader crumbs={[{ label: 'The Wiz', href: '/' }, { label: 'Courses', href: '/courses' }, { label: `Year ${course.year}`, href: `/courses/year-${course.year}` }, { label: course.title }]} eyebrow={`THE WIZ · Year ${course.year} · ${course.category}`} title={<span lang="fr">{course.title}</span>} intro={`A look inside: pages 1–${course.previewPages} of ${course.pages}. Take your time, get a feel for the notes, and make your next study session count.`} />
+    <CourseProduct course={course} /></>;
 }

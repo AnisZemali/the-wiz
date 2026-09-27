@@ -24,7 +24,7 @@ const inter = Inter({
 });
 
 const description =
-  "The Wiz is a series of premium study notebooks for medicine, pharmacy and dental surgery — handwritten high-yield summaries, diagrams, mnemonics and dedicated note pages after every chapter. One notebook per subject, year by year.";
+  "The Wiz is a series of premium study notebooks for medicine, pharmacy and dental medicine — handwritten high-yield summaries, diagrams, mnemonics and dedicated note pages after every chapter. One notebook per subject, year by year.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     "medical student notebook",
     "medicine study notes",
     "pharmacy student notes",
-    "dental surgery notes",
+    "dental medicine notes",
     "anatomy summaries",
     "physiology notes",
     "semiology notes",
@@ -78,33 +78,12 @@ export const viewport: Viewport = {
  * The landing page sells the flagship, so it carries a Product entry —
  * described as itself, not as the whole series. Each book page emits its own.
  */
-const productJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Product",
-  name: product.name,
-  brand: { "@type": "Brand", name: site.name },
-  description: flagship.summary,
-  category: "Study notebook",
-  offers: {
-    "@type": "Offer",
-    price: product.price,
-    priceCurrency: product.currency,
-    availability: "https://schema.org/InStock",
-    url: `${site.url}/#order`,
-  },
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning className={`${spaceGrotesk.variable} ${inter.variable}`}>
       <body className="bg-paper text-ink antialiased">
-        <script
-          type="application/ld+json"
-          // Static, non-user content — safe to inline for rich results.
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
-        />
         <SkipLink />
         <SmoothScroll>
           <Nav />

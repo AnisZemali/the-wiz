@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation';
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -27,36 +28,4 @@ export async function generateMetadata({
   };
 }
 
-export default async function SpecialtyPage({
-  params,
-}: {
-  params: Promise<Params>;
-}) {
-  const { specialty: slug } = await params;
-  const specialty = getSpecialty(slug);
-  if (!specialty) notFound();
-
-  const list = booksBySpecialty(specialty.slug);
-
-  return (
-    <>
-      <CataloguePageHeader
-        crumbs={[
-          { label: "The Wiz", href: "/" },
-          { label: "Books", href: "/books" },
-          { label: specialty.name },
-        ]}
-        eyebrow={`${specialty.studyYears} taught years`}
-        title={specialty.name}
-        intro={
-          specialty.note ??
-          `Every subject of the ${specialty.name.toLowerCase()} programme, one notebook at a time.`
-        }
-      />
-
-      <div className="shell pb-28 md:pb-40">
-        <CatalogueBrowser books={list} lockedSpecialty={specialty.slug} />
-      </div>
-    </>
-  );
-}
+export default function LegacyBookPage() { redirect('/courses'); }

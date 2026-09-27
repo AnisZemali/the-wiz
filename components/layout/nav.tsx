@@ -19,7 +19,7 @@ export function Nav() {
   const [lifted, setLifted] = useState(false);
 
   // Book pages carry their own #order panel; everywhere else, go home for it.
-  const hasLocalOrder = localPath === "/" || (localPath.startsWith("/books/") && localPath.split("/").length === 5);
+  const hasLocalOrder = localPath === "/" || (localPath.startsWith("/courses/") && localPath.split("/").length === 4) || (localPath.startsWith("/books/") && localPath.split("/").length === 5);
   const orderHref = hasLocalOrder ? "#order" : french ? "/fr/#order" : "/#order";
 
   useMotionValueEvent(scrollY, "change", (value) => {

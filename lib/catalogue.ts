@@ -68,7 +68,7 @@ export const specialties: readonly Specialty[] = [
   },
   {
     slug: "dental-surgery",
-    name: "Dental surgery",
+    name: "Dental medicine",
     degreeYears: 5,
     studyYears: 5,
   },
