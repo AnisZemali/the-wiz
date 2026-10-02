@@ -25,12 +25,12 @@ const inter = Inter({
 });
 
 const description =
-  "The Wiz is a series of premium study notebooks for medicine, pharmacy and dental medicine — handwritten high-yield summaries, diagrams, mnemonics and dedicated note pages after every chapter. One notebook per subject, year by year.";
+  "THE WIZ creates collections of revision books. MedWIZ — Medicine is the first: course summaries based on the Algerian curriculum, contents that become a progress tracker, facing notes pages and Extra Notes, in a minimal black-and-white handwritten style.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — Premium study notebooks for medical students`,
+    default: `${site.name} — Revision books — MedWIZ and future collections`,
     template: `%s — ${site.name}`,
   },
   description,

@@ -27,10 +27,9 @@ export const site = {
  * them to `/#id` when the visitor is on any other route.
  */
 export const nav = [
-  { label: "Courses", href: "/courses" },
+  { label: "Collections", href: "/courses" },
   { label: "Why", href: "#why" },
   { label: "Inside", href: "#inside" },
-  { label: "Books", href: "/books" },
   { label: "FAQ", href: "#faq" },
 ] as const;
 

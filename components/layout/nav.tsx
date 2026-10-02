@@ -64,7 +64,7 @@ export function Nav() {
           ))}
         </ul>
 
-        <SectionLink href="/courses" className="ml-auto text-sm lg:hidden">{french ? 'Cours' : 'Courses'}</SectionLink>
+        <SectionLink href="/courses" className="ml-auto text-sm lg:hidden">Collections</SectionLink>
         <LanguageSwitch />
         <ButtonLink href={orderHref} size="md" className="h-10 px-5 text-sm">
           {french ? 'Commander' : 'Order'}

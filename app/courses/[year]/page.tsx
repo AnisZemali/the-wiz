@@ -14,5 +14,5 @@ export async function generateMetadata({ params }: { params: Promise<{ year: str
 export default async function YearPage({ params }: { params: Promise<{ year: string }> }) {
   const year = resolve((await params).year);
   if (!year) notFound();
-  return <><CataloguePageHeader crumbs={[{ label: 'The Wiz', href: '/' }, { label: 'Courses', href: '/courses' }, { label: `Year ${year}` }]} eyebrow="THE WIZ · Medicine" title={<>Year {year}.<br /><span className="text-ink-40">One course at a time.</span></>} intro="Browse the subjects for your year and read a 10-page preview before you go further." /><CourseLibrary year={year} /></>;
+  return <><CataloguePageHeader crumbs={[{ label: 'The Wiz', href: '/' }, { label: 'Collections', href: '/courses' }, { label: `Year ${year}` }]} eyebrow="THE WIZ · Medicine" title={<>Year {year}.<br /><span className="text-ink-40">One course at a time.</span></>} intro="Browse MedWIZ course summaries by module and integrated unit for your year, and preview each study book." /><CourseLibrary year={year} /></>;
 }

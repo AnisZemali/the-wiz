@@ -40,7 +40,7 @@ function pageTitle(path: string) {
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const path = '/' + ((await params).path ?? []).join('/');
   const canonical = `/fr${path === '/' ? '' : path}`;
-  return { title: pageTitle(path), description: 'Découvrez les carnets The Wiz et les cours MedWIZ, classés par année. Consultez les 10 premières pages de chaque cours.', alternates: { canonical, languages: { en: path, fr: canonical } }, openGraph: { title: `${pageTitle(path)} — The Wiz`, description: 'Des résumés clairs et des cours classés par année pour vos études de santé.', locale: 'fr_FR', url: `${site.url}${canonical}` } };
+  return { title: pageTitle(path), description: 'Découvrez les livres de révision MedWIZ : résumés de cours selon le programme algérien, sommaire et tracker, notes et Extra Notes.', alternates: { canonical, languages: { en: path, fr: canonical } }, openGraph: { title: `${pageTitle(path)} — The Wiz`, description: 'Des résumés de cours classés par année pour vos études de santé.', locale: 'fr_FR', url: `${site.url}${canonical}` } };
 }
 export default async function FrenchPage({ params }: { params: Promise<Params> }) {
   const path = '/' + ((await params).path ?? []).join('/');
@@ -50,8 +50,8 @@ export default async function FrenchPage({ params }: { params: Promise<Params> }
   if (parts[0] === 'courses') {
     const year = parts[1] ? Number(parts[1].replace('year-', '')) : undefined;
     const course = courses.find(c => courseHref(c) === path);
-    const crumbs = [{ label: 'The Wiz', href: '/fr' }, { label: 'Cours', href: '/fr/courses' }, ...(year ? [{ label: frenchYear(year), href: `/fr/courses/year-${year}` }] : []), ...(course ? [{ label: course.title }] : [])];
-    return <div lang="fr"><CataloguePageHeader locale="fr" crumbs={crumbs} eyebrow={course ? `THE WIZ · ${frenchYear(course.year)} · ${course.category === 'Integrated units' ? 'Unités d’enseignement intégrées' : 'Modules'}` : 'Collection THE WIZ · Médecine'} title={course ? course.title : year ? <>{frenchYear(year)}.<br /><span className="text-ink-40">Une matière à la fois.</span></> : <>Votre année.<br /><span className="text-ink-40">Votre prochain chapitre.</span></>} intro={course ? `Un livre indépendant à découvrir : les pages 1 à ${course.previewPages} sur ${course.pages}. Prenez le temps de découvrir les notes et de préparer votre prochaine séance de révision.` : 'Découvrez chaque livre de médecine, classé par année et par module ou UEI. Feuilletez les dix premières pages avant de commander.'} />
+    const crumbs = [{ label: 'The Wiz', href: '/fr' }, { label: 'Collections', href: '/fr/courses' }, ...(year ? [{ label: frenchYear(year), href: `/fr/courses/year-${year}` }] : []), ...(course ? [{ label: course.title }] : [])];
+    return <div lang="fr"><CataloguePageHeader locale="fr" crumbs={crumbs} eyebrow={course ? `THE WIZ · ${frenchYear(course.year)} · ${course.category === 'Integrated units' ? 'Unités d’enseignement intégrées' : 'Modules'}` : 'Collection MedWIZ · Médecine'} title={course ? course.title : year ? <>{frenchYear(year)}.<br /><span className="text-ink-40">Une matière à la fois.</span></> : <>Votre année.<br /><span className="text-ink-40">Vos cours. Votre livre.</span></>} intro={course ? 'Un livre de révision MedWIZ : des résumés de cours et des pages dédiées à vos notes, selon le programme algérien. Feuilletez le livre avant de commander.' : 'Découvrez les collections THE WIZ, conçues pour accompagner votre parcours d’études. Retrouvez des résumés de cours classés selon le programme algérien, ainsi que des pages dédiées à vos propres notes. Feuilletez les premières pages de chaque livre avant de commander.'} />
       {course ? <CourseProduct course={course} locale="fr" /> : <CourseLibrary year={year} locale="fr" />}
     </div>;
   }
