@@ -1,4 +1,5 @@
 "use client";
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { frenchNav, isFrenchPath } from '@/lib/locale';
 import { SectionLink } from "@/components/layout/section-link";
@@ -121,6 +122,7 @@ export function Footer() {
             © {year} {site.name}. {french ? 'Tous droits réservés.' : 'All rights reserved.'}
           </p>
           <p>{french ? 'Créé par un étudiant en médecine, pour les étudiants en médecine.' : 'Made by a medical student, for medical students.'}</p>
+          <Link href="/admin" className="underline underline-offset-4">Admin</Link>
         </div>
       </div>
     </footer>

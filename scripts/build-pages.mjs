@@ -1,4 +1,6 @@
-import { rename, writeFile, readdir, readFile } from 'node:fs/promises';
+import { rename, writeFile, readdir, readFile, mkdtemp, rm } from 'node:fs/promises';
+import path from 'node:path';
+import os from 'node:os';
 import { spawnSync } from 'node:child_process';
 import { PDFDocument } from 'pdf-lib';
 
@@ -11,9 +13,17 @@ for (const course of courses) {
 }
 
 // Preserve the server endpoint for normal Next.js deployments.
-const route = 'app/api/order/route.ts';
-await rename(route, `${route}.disabled`);
+const route = 'app/api';
+const disabled = 'api.disabled';
+// Next's export mode uses .next internally even when distDir names the export.
+// Preserve the normal build so exporting cannot break localhost CSS/JS paths.
+const backup = await mkdtemp(path.join(os.tmpdir(), 'wiz-next-backup-'));
+let preserved = false;
+let movedApi = false;
 try {
+  try { await rename('.next', path.join(backup, 'normal')); preserved = true; }
+  catch (e) { if (e.code !== 'ENOENT') throw e; }
+  await rename(route, disabled); movedApi = true;
   const build = spawnSync(process.execPath, ['node_modules/next/dist/bin/next', 'build'], {
     stdio: 'inherit', env: { ...process.env, NEXT_PUBLIC_GITHUB_PAGES: 'true' },
   });
@@ -31,5 +41,12 @@ try {
   }
   await setFrenchLanguage('.next-pages/fr');
 } finally {
-  await rename(`${route}.disabled`, route);
+  if (movedApi) await rename(disabled, route);
+  if (preserved) {
+    try { await rename('.next', path.join(backup, 'export')); }
+    catch (e) { if (e.code !== 'ENOENT') throw e; }
+    await rename(path.join(backup, 'normal'), '.next');
+  }
+  // Only delete this script's newly created temporary directory.
+  if (path.dirname(backup) === path.resolve(os.tmpdir()) && path.basename(backup).startsWith('wiz-next-backup-')) await rm(backup, { recursive: true, force: true });
 }

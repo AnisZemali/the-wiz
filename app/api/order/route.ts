@@ -1,5 +1,23 @@
-import { NextResponse } from 'next/server';
-import { site } from '@/lib/content';
-export async function POST() {
-  return NextResponse.json({ error: `Please request your book by email at ${site.email}. Price, availability and delivery are confirmed directly.` }, { status: 410 });
+import { NextRequest } from 'next/server';
+import { body, configured, sameOrigin, json } from '@/lib/admin-auth';
+import { validateOrder } from '@/lib/order-validation';
+import { getValue, putValue, allowAttempt } from '@/lib/order-store';
+import type { Order } from '@/lib/order-types';
+export const runtime = 'nodejs';
+export async function GET() { return json({ available: configured() }); }
+export async function POST(request: NextRequest) {
+ if (!sameOrigin(request)) return json({error:'Invalid origin'},403);
+ if (!configured()) return json({error:'Ordering is not configured yet'},503);
+ let input;
+ try { input = validateOrder(await body(request)); } catch { return json({error:'Invalid request'},400); }
+ if (!input) return json({error:'Invalid order details'},400);
+ try {
+   const existing=await getValue<Order>(`orders/${input.id}`);
+   if (existing) return json({reference:existing.reference});
+   if (!await allowAttempt(request,'order',20)) return json({error:'Too many requests'},429);
+   const now=new Date().toISOString();
+   const order:Order={...input,reference:'WZ-'+input.id,createdAt:now,updatedAt:now,status:'new'};
+   await putValue(`orders/${input.id}`,order,true);
+   return json({reference:order.reference},201);
+ } catch { return json({error:'Order could not be saved. Please try again later.'},503); }
 }

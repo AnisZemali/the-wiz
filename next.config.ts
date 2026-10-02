@@ -14,6 +14,7 @@ const nextConfig: NextConfig = {
   // Pin the workspace root — other lockfiles higher up the tree confuse the
   // file-tracing heuristic.
   outputFileTracingRoot: path.resolve(process.cwd()),
+  outputFileTracingExcludes: { '*': ['./.data/**', './Content/**', './.env*'] },
   images: {
     unoptimized: process.env.NEXT_PUBLIC_GITHUB_PAGES === "true",
     formats: ["image/avif", "image/webp"],
