@@ -9,6 +9,7 @@ import { flagship } from "@/lib/catalogue";
 import { product, site } from "@/lib/content";
 
 import "./globals.css";
+import { CartProvider } from "@/components/order/cart";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -85,11 +86,11 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className={`${spaceGrotesk.variable} ${inter.variable}`}>
       <body className="bg-paper text-ink antialiased">
         <SkipLink />
-        <SmoothScroll>
+        <CartProvider><SmoothScroll>
           <Nav />
           <main id="main">{children}</main>
           <Footer />
-        </SmoothScroll>
+        </SmoothScroll></CartProvider>
       </body>
     </html>
   );

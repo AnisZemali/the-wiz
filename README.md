@@ -60,3 +60,7 @@ The reader never loads original full PDFs. Its images are rendered from the trun
 Netlify uses `netlify.toml` and the standard Next.js build. The site URL comes from `NEXT_PUBLIC_SITE_URL`, Netlify's `URL`, or `DEPLOY_PRIME_URL`.
 
 GitHub Pages exports into `.next-pages` with the `/the-wiz` base path; the workflow publishes on pushes to main. It supports email requests only. The private order inbox requires the Netlify/Next.js deployment.
+
+## Multi-book cart
+
+The bilingual cart saves course IDs and quantities in this browser’s local storage (no customer contact details). Customers can add several courses, change quantities or remove books, then submit one delivery form. A successful save clears the cart and provides an order reference. The admin table shows all books under that reference; the Excel CSV contains one row per book. Historical single-book orders remain supported. Prices and delivery charges are confirmed by the team.
