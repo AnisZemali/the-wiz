@@ -29,7 +29,7 @@ for (const file of files) {
   const match = /^MW-(\d+)-(.+)\.pdf$/i.exec(path.basename(file));
   if (!match) throw new Error(`Unexpected course filename: ${file}`);
   const year = Number(match[1]);
-  const title = match[2];
+  const title = match[2].replace(/_/g, '’');
   const slug = slugify(title);
   const id = `${year}-${slug}`;
   if (courses.some(c => c.id === id)) throw new Error(`Duplicate course: ${id}`);

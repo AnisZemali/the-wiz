@@ -1,5 +1,35 @@
 [
   {
+    "id": "1-anatomie",
+    "year": 1,
+    "slug": "anatomie",
+    "title": "Anatomie",
+    "category": "Modules",
+    "pages": 152,
+    "previewPages": 10,
+    "previewUrl": "/course-previews/1-anatomie.pdf"
+  },
+  {
+    "id": "1-biochimie",
+    "year": 1,
+    "slug": "biochimie",
+    "title": "Biochimie",
+    "category": "Modules",
+    "pages": 82,
+    "previewPages": 10,
+    "previewUrl": "/course-previews/1-biochimie.pdf"
+  },
+  {
+    "id": "1-biophysique",
+    "year": 1,
+    "slug": "biophysique",
+    "title": "Biophysique",
+    "category": "Modules",
+    "pages": 90,
+    "previewPages": 10,
+    "previewUrl": "/course-previews/1-biophysique.pdf"
+  },
+  {
     "id": "1-biostatistiques",
     "year": 1,
     "slug": "biostatistiques",
@@ -8,6 +38,16 @@
     "pages": 40,
     "previewPages": 10,
     "previewUrl": "/course-previews/1-biostatistiques.pdf"
+  },
+  {
+    "id": "1-chimie",
+    "year": 1,
+    "slug": "chimie",
+    "title": "Chimie",
+    "category": "Modules",
+    "pages": 62,
+    "previewPages": 10,
+    "previewUrl": "/course-previews/1-chimie.pdf"
   },
   {
     "id": "1-cytologie",
@@ -80,6 +120,36 @@
     "previewUrl": "/course-previews/1-secourisme.pdf"
   },
   {
+    "id": "2-appareil-cardio-respiratoire-et-organes-hematopoietiques",
+    "year": 2,
+    "slug": "appareil-cardio-respiratoire-et-organes-hematopoietiques",
+    "title": "Appareil cardio-respiratoire et organes hématopoïétiques",
+    "category": "Integrated units",
+    "pages": 116,
+    "previewPages": 10,
+    "previewUrl": "/course-previews/2-appareil-cardio-respiratoire-et-organes-hematopoietiques.pdf"
+  },
+  {
+    "id": "2-appareil-digestif",
+    "year": 2,
+    "slug": "appareil-digestif",
+    "title": "Appareil digestif",
+    "category": "Integrated units",
+    "pages": 88,
+    "previewPages": 10,
+    "previewUrl": "/course-previews/2-appareil-digestif.pdf"
+  },
+  {
+    "id": "2-appareil-endocrino-genital",
+    "year": 2,
+    "slug": "appareil-endocrino-genital",
+    "title": "Appareil endocrino-génital",
+    "category": "Integrated units",
+    "pages": 108,
+    "previewPages": 10,
+    "previewUrl": "/course-previews/2-appareil-endocrino-genital.pdf"
+  },
+  {
     "id": "2-appareil-urinaire",
     "year": 2,
     "slug": "appareil-urinaire",
@@ -88,6 +158,16 @@
     "pages": 52,
     "previewPages": 10,
     "previewUrl": "/course-previews/2-appareil-urinaire.pdf"
+  },
+  {
+    "id": "2-systeme-nerveux-et-organes-des-sens",
+    "year": 2,
+    "slug": "systeme-nerveux-et-organes-des-sens",
+    "title": "Système nerveux et organes des sens",
+    "category": "Integrated units",
+    "pages": 112,
+    "previewPages": 10,
+    "previewUrl": "/course-previews/2-systeme-nerveux-et-organes-des-sens.pdf"
   },
   {
     "id": "2-genetique",
@@ -140,6 +220,16 @@
     "previewUrl": "/course-previews/3-appareil-neurologique-locomoteur-et-cutane.pdf"
   },
   {
+    "id": "3-psychologie-medicale-semiologie-generale-et-appareil-cardio-respiratoire",
+    "year": 3,
+    "slug": "psychologie-medicale-semiologie-generale-et-appareil-cardio-respiratoire",
+    "title": "Psychologie médicale, sémiologie générale et appareil cardio-respiratoire",
+    "category": "Integrated units",
+    "pages": 204,
+    "previewPages": 10,
+    "previewUrl": "/course-previews/3-psychologie-medicale-semiologie-generale-et-appareil-cardio-respiratoire.pdf"
+  },
+  {
     "id": "3-anatomopathologie",
     "year": 3,
     "slug": "anatomopathologie",
@@ -170,6 +260,16 @@
     "previewUrl": "/course-previews/3-microbiologie.pdf"
   },
   {
+    "id": "3-parasitologie-mycologie",
+    "year": 3,
+    "slug": "parasitologie-mycologie",
+    "title": "Parasitologie-Mycologie",
+    "category": "Modules",
+    "pages": 82,
+    "previewPages": 10,
+    "previewUrl": "/course-previews/3-parasitologie-mycologie.pdf"
+  },
+  {
     "id": "3-pharmacologie",
     "year": 3,
     "slug": "pharmacologie",
@@ -180,6 +280,126 @@
     "previewUrl": "/course-previews/3-pharmacologie.pdf"
   },
   {
+    "id": "4-cardiologie",
+    "year": 4,
+    "slug": "cardiologie",
+    "title": "Cardiologie",
+    "category": "Modules",
+    "pages": 90,
+    "previewPages": 10,
+    "previewUrl": "/course-previews/4-cardiologie.pdf"
+  },
+  {
+    "id": "4-hepato-gastro-enterologie",
+    "year": 4,
+    "slug": "hepato-gastro-enterologie",
+    "title": "Hépato-Gastro-Entérologie",
+    "category": "Modules",
+    "pages": 108,
+    "previewPages": 10,
+    "previewUrl": "/course-previews/4-hepato-gastro-enterologie.pdf"
+  },
+  {
+    "id": "4-maladies-infectieuses",
+    "year": 4,
+    "slug": "maladies-infectieuses",
+    "title": "Maladies infectieuses",
+    "category": "Modules",
+    "pages": 100,
+    "previewPages": 10,
+    "previewUrl": "/course-previews/4-maladies-infectieuses.pdf"
+  },
+  {
+    "id": "4-neurologie",
+    "year": 4,
+    "slug": "neurologie",
+    "title": "Neurologie",
+    "category": "Modules",
+    "pages": 112,
+    "previewPages": 10,
+    "previewUrl": "/course-previews/4-neurologie.pdf"
+  },
+  {
+    "id": "4-onco-hematologie",
+    "year": 4,
+    "slug": "onco-hematologie",
+    "title": "Onco-Hématologie",
+    "category": "Modules",
+    "pages": 88,
+    "previewPages": 10,
+    "previewUrl": "/course-previews/4-onco-hematologie.pdf"
+  },
+  {
+    "id": "4-pneumo-phtisiologie",
+    "year": 4,
+    "slug": "pneumo-phtisiologie",
+    "title": "Pneumo-Phtisiologie",
+    "category": "Modules",
+    "pages": 92,
+    "previewPages": 10,
+    "previewUrl": "/course-previews/4-pneumo-phtisiologie.pdf"
+  },
+  {
+    "id": "5-endocrinologie-maladies-metaboliques",
+    "year": 5,
+    "slug": "endocrinologie-maladies-metaboliques",
+    "title": "Endocrinologie-Maladies métaboliques",
+    "category": "Modules",
+    "pages": 86,
+    "previewPages": 10,
+    "previewUrl": "/course-previews/5-endocrinologie-maladies-metaboliques.pdf"
+  },
+  {
+    "id": "5-gynecologie-obstetrique",
+    "year": 5,
+    "slug": "gynecologie-obstetrique",
+    "title": "Gynécologie-Obstétrique",
+    "category": "Modules",
+    "pages": 120,
+    "previewPages": 10,
+    "previewUrl": "/course-previews/5-gynecologie-obstetrique.pdf"
+  },
+  {
+    "id": "5-orthopedie-traumatologie-reeducation",
+    "year": 5,
+    "slug": "orthopedie-traumatologie-reeducation",
+    "title": "Orthopédie-Traumatologie-Rééducation",
+    "category": "Modules",
+    "pages": 158,
+    "previewPages": 10,
+    "previewUrl": "/course-previews/5-orthopedie-traumatologie-reeducation.pdf"
+  },
+  {
+    "id": "5-pediatrie",
+    "year": 5,
+    "slug": "pediatrie",
+    "title": "Pédiatrie",
+    "category": "Modules",
+    "pages": 178,
+    "previewPages": 10,
+    "previewUrl": "/course-previews/5-pediatrie.pdf"
+  },
+  {
+    "id": "5-sante-mentale",
+    "year": 5,
+    "slug": "sante-mentale",
+    "title": "Santé mentale",
+    "category": "Modules",
+    "pages": 84,
+    "previewPages": 10,
+    "previewUrl": "/course-previews/5-sante-mentale.pdf"
+  },
+  {
+    "id": "5-urologie-nephrologie",
+    "year": 5,
+    "slug": "urologie-nephrologie",
+    "title": "Urologie-Néphrologie",
+    "category": "Modules",
+    "pages": 120,
+    "previewPages": 10,
+    "previewUrl": "/course-previews/5-urologie-nephrologie.pdf"
+  },
+  {
     "id": "6-dermatologie",
     "year": 6,
     "slug": "dermatologie",
@@ -188,5 +408,85 @@
     "pages": 74,
     "previewPages": 10,
     "previewUrl": "/course-previews/6-dermatologie.pdf"
+  },
+  {
+    "id": "6-maladies-systemiques",
+    "year": 6,
+    "slug": "maladies-systemiques",
+    "title": "Maladies systémiques",
+    "category": "Modules",
+    "pages": 78,
+    "previewPages": 10,
+    "previewUrl": "/course-previews/6-maladies-systemiques.pdf"
+  },
+  {
+    "id": "6-medecine-d-urgence",
+    "year": 6,
+    "slug": "medecine-d-urgence",
+    "title": "Médecine d’urgence",
+    "category": "Modules",
+    "pages": 104,
+    "previewPages": 10,
+    "previewUrl": "/course-previews/6-medecine-d-urgence.pdf"
+  },
+  {
+    "id": "6-medecine-legale-et-droit-medical",
+    "year": 6,
+    "slug": "medecine-legale-et-droit-medical",
+    "title": "Médecine légale et droit médical",
+    "category": "Modules",
+    "pages": 82,
+    "previewPages": 10,
+    "previewUrl": "/course-previews/6-medecine-legale-et-droit-medical.pdf"
+  },
+  {
+    "id": "6-ophtalmologie",
+    "year": 6,
+    "slug": "ophtalmologie",
+    "title": "Ophtalmologie",
+    "category": "Modules",
+    "pages": 88,
+    "previewPages": 10,
+    "previewUrl": "/course-previews/6-ophtalmologie.pdf"
+  },
+  {
+    "id": "6-oto-rhino-laryngologie",
+    "year": 6,
+    "slug": "oto-rhino-laryngologie",
+    "title": "Oto-Rhino-Laryngologie",
+    "category": "Modules",
+    "pages": 92,
+    "previewPages": 10,
+    "previewUrl": "/course-previews/6-oto-rhino-laryngologie.pdf"
+  },
+  {
+    "id": "6-personne-agee",
+    "year": 6,
+    "slug": "personne-agee",
+    "title": "Personne âgée",
+    "category": "Modules",
+    "pages": 84,
+    "previewPages": 10,
+    "previewUrl": "/course-previews/6-personne-agee.pdf"
+  },
+  {
+    "id": "6-sante-au-travail-et-environnement",
+    "year": 6,
+    "slug": "sante-au-travail-et-environnement",
+    "title": "Santé au travail et environnement",
+    "category": "Modules",
+    "pages": 106,
+    "previewPages": 10,
+    "previewUrl": "/course-previews/6-sante-au-travail-et-environnement.pdf"
+  },
+  {
+    "id": "6-epidemiologie-methodologie-de-recherche-lecture-critique-d-article-sante-publique-economie-de-sante",
+    "year": 6,
+    "slug": "epidemiologie-methodologie-de-recherche-lecture-critique-d-article-sante-publique-economie-de-sante",
+    "title": "Épidémiologie-Méthodologie de recherche-Lecture critique d’article-Santé publique-Économie de santé",
+    "category": "Modules",
+    "pages": 90,
+    "previewPages": 10,
+    "previewUrl": "/course-previews/6-epidemiologie-methodologie-de-recherche-lecture-critique-d-article-sante-publique-economie-de-sante.pdf"
   }
 ]
