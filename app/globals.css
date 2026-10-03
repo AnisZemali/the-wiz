@@ -210,3 +210,8 @@
 @keyframes wiz-page-in {from {opacity:.4;transform:rotateY(-8deg)} to {opacity:1;transform:rotateY(0)}}
 @media(prefers-reduced-motion:reduce){.wiz-reader {transition:none}.wiz-page {animation:none}}
 @media(max-width:380px){.wiz-cover-title h2 {font-size:17px} header nav.shell {gap:7px;padding-inline:12px} header nav .type-display {font-size:14px} header nav a {font-size:12px}}
+
+/* Arabic uses a dedicated font and natural spacing for connected letters. */
+:lang(ar) { --font-sans: var(--font-arabic), sans-serif; --font-display: var(--font-arabic), sans-serif; font-family: var(--font-arabic), sans-serif; }
+:lang(ar) :is(h1,h2,h3,h4,.type-display,.type-heading,.type-eyebrow) { letter-spacing: normal; line-height: 1.5; }
+:lang(ar) input, :lang(ar) textarea, :lang(ar) select { font-family: var(--font-arabic), sans-serif; }

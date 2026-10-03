@@ -1,43 +1,34 @@
 "use client";
-import { useEffect, useRef, useState, type FormEvent } from 'react';
-import type { Course } from '@/lib/courses';
-import type { Locale } from '@/lib/locale';
-import { githubPages } from '@/lib/hosting';
-import { site } from '@/lib/content';
-
-export function CourseOrderForm({ course, locale, items, onSaved }: { course?: Course; locale: Locale; items?: {courseId:string;quantity:number}[]; onSaved?: () => void }) {
-  const fr = locale === 'fr';
-  const id = useRef('');
-  const sending = useRef(false);
-  const lastPayload = useRef('');
-  const [busy, setBusy] = useState(false), [error, setError] = useState(''), [reference, setReference] = useState('');
-  const [ready, setReady] = useState<boolean | null>(githubPages ? false : null);
-  useEffect(() => { if (!githubPages) fetch('/api/order', { cache: 'no-store' }).then(r => r.json()).then(d => setReady(d.available === true)).catch(() => setReady(false)); }, []);
-  async function submit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault(); if (sending.current) return;
-    sending.current = true; setBusy(true); setError('');
-    const form = new FormData(e.currentTarget);
-    const payload = { ...Object.fromEntries(form), ...(items ? {items} : {courseId: course?.id, quantity: Number(form.get('quantity'))}), consent: form.get('consent') === 'on' };
-    const signature = JSON.stringify(payload);
-    if (!id.current || signature !== lastPayload.current) id.current = crypto.randomUUID();
-    lastPayload.current = signature;
-    try {
-      const response = await fetch('/api/order', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...payload, id: id.current }) });
-      const result = await response.json();
-      if (!response.ok) throw new Error(response.status === 429 ? fr ? 'Trop de demandes. Réessayez plus tard.' : 'Too many requests. Please try later.' : fr ? 'La commande n’a pas pu être enregistrée. Vérifiez les champs ou réessayez plus tard.' : 'Your order could not be saved. Check the fields or try again later.');
-      setReference(result.reference); onSaved?.();
-    } catch (e) { setError(e instanceof Error ? e.message : 'Erreur réseau'); }
-    finally { sending.current = false; setBusy(false); }
-  }
-  return <div id="order" className="mt-6 scroll-mt-28 rounded-2xl border border-ink-12 p-6"><h3 className="text-xl">{fr ? 'Coordonnées de livraison' : 'Delivery details'}</h3>
-    {ready === null ? <p role="status" className="mt-4 text-sm">{fr ? 'Chargement…' : 'Loading…'}</p> : !ready ? <><p className="mt-4 text-sm text-ink-56">{fr ? 'Le formulaire est actuellement indisponible. Vous pouvez envoyer votre demande par e-mail.' : 'The form is currently unavailable. You can send your request by email.'}</p><a className="mt-5 block rounded-full bg-ink p-4 text-center text-paper" href={`mailto:${site.email}?subject=${encodeURIComponent(`THE WIZ — ${items?.map(i=>`${i.courseId} x ${i.quantity}`).join(', ') ?? course?.title}`)}`}>{fr ? 'Commander par e-mail' : 'Order by email'}</a></> : reference ? <div role="status" className="mt-5 rounded-xl bg-ink-04 p-5"><p className="font-medium">{fr ? 'Votre demande a bien été enregistrée.' : 'Your request has been saved.'}</p><p className="mt-3 break-all">{fr ? 'Référence' : 'Reference'} : {reference}</p><p className="mt-3 text-sm text-ink-56">{fr ? 'Nous vous contacterons pour confirmer le prix, la disponibilité et la livraison. Aucun paiement n’a été effectué.' : 'We will contact you to confirm price, availability and delivery. No payment has been taken.'}</p></div> : <form onSubmit={submit} className="mt-5 space-y-4">
-      <p className="text-sm leading-relaxed text-ink-56">{fr ? 'Remplissez votre demande. Nous confirmerons le prix, la disponibilité et la livraison avant validation. Aucun paiement en ligne.' : 'Submit your request. We will confirm price, availability and delivery before confirmation. No online payment.'}</p>
-      {([['name', fr?'Nom complet':'Full name', 'text',true,100,'name'],['phone',fr?'Téléphone':'Phone','tel',true,24,'tel'],['email',fr?'Email (facultatif)':'Email (optional)','email',false,150,'email'],['wilaya','Wilaya','text',true,80,'address-level1'],['address',fr?'Commune et adresse de livraison':'Town and delivery address','text',true,300,'street-address']] as const).map(([name,label,type,required,maxLength,autoComplete])=><label key={name} className="block text-sm"><span className="mb-2 block">{label}{required?' *':''}</span><input name={name} type={type} required={required} maxLength={maxLength} autoComplete={autoComplete} className="w-full rounded-xl border border-ink-24 bg-paper p-3" /></label>)}
-      <label hidden={!!items} className="block text-sm">{fr ? 'Quantité' : 'Quantity'}<input className="mt-2 block w-24 rounded-xl border border-ink-24 p-3" type="number" name="quantity" min="1" max="20" defaultValue="1" required /></label>
-      <label className="block text-sm">{fr ? 'Note (facultative)' : 'Note (optional)'}<textarea name="note" maxLength={1000} rows={3} className="mt-2 w-full rounded-xl border border-ink-24 p-3" /></label>
-      <label hidden aria-hidden="true">Website<input name="website" tabIndex={-1} autoComplete="off" /></label>
-      <label className="flex items-start gap-3 text-xs leading-relaxed text-ink-56"><input type="checkbox" name="consent" required className="mt-1"/>{fr ? 'J’accepte que THE WIZ utilise ces coordonnées pour traiter ma demande et me contacter. Elles sont accessibles uniquement à l’équipe et ne sont pas utilisées pour une liste publicitaire.' : 'I agree that THE WIZ may use these details to process and contact me about my request. They are only accessible to the team and are not used for a marketing list.'}</label>
-      {error && <p role="alert" className="text-sm">{error}</p>}<button disabled={busy} className="w-full rounded-full bg-ink p-4 text-paper disabled:opacity-50">{busy ? fr?'Enregistrement…':'Saving…' : fr?'Envoyer la demande':'Submit order request'}</button>
-    </form>}
-  </div>;
+import {useEffect,useRef,useState,type FormEvent} from 'react';
+import {quote,deliveryRates,type CartItem} from '@/lib/commerce';
+import {courses,courseTitle} from '@/lib/courses';
+import {money,type Locale} from '@/lib/locale';
+import {checkoutCopy,type CheckoutDraft} from '@/lib/checkout-copy';
+import {githubPages} from '@/lib/hosting';
+type Pricing=NonNullable<ReturnType<typeof quote>>;
+export function OrderSummary({pricing,draft,locale}:{pricing:Pricing;draft:CheckoutDraft;locale:Locale}){
+ const t=checkoutCopy(locale),rate=deliveryRates.find(r=>r.id===pricing.wilayaId)!;
+ return <div className="space-y-5 rounded-2xl border border-ink-12 p-5"><h3 className="text-xl">{t.summary}</h3><section><h4 className="font-medium">{t.customer}</h4><p>{draft.firstName} {draft.lastName}</p><p dir="ltr" className="text-start">{draft.phone}</p><p className="break-all">{draft.email}</p></section><section><h4 className="font-medium">{t.shipment}</h4><p>{rate.name[locale]} · {pricing.deliveryMethod==='home'?t.home:t.stopdesk}</p><p className="whitespace-pre-wrap break-words">{pricing.deliveryMethod==='home'?draft.address:t.pickup}</p></section><section><h4 className="font-medium">{t.books}</h4><ul className="divide-y divide-ink-12">{pricing.items.map(i=><li key={i.courseId} className="py-3"><p>{courseTitle(courses.find(c=>c.id===i.courseId)!,locale)}</p><p className="text-sm">{t.quantity}: {i.quantity} · {t.unit}: {money(i.unitPrice,locale)}</p><p>{money(i.lineTotal,locale)}</p></li>)}</ul></section><Totals pricing={pricing} locale={locale}/>{draft.note&&<p className="whitespace-pre-wrap break-words">{t.note}: {draft.note}</p>}</div>;
+}
+export function Totals({pricing,locale}:{pricing:Pricing;locale:Locale}){const t=checkoutCopy(locale);return <dl className="space-y-3 border-t border-ink-12 pt-4">{[[t.subtotal,pricing.subtotal],[t.delivery,pricing.deliveryFee],[t.total,pricing.total]].map(([label,value],i)=><div key={label} className={`flex flex-wrap justify-between gap-3 ${i===2?'border-t border-ink-12 pt-4 text-xl font-semibold':''}`}><dt>{label}</dt><dd>{money(Number(value),locale)}</dd></div>)}</dl>}
+export function CourseOrderForm({locale,items,draft,setDraft,onSaved,onBusy}:{locale:Locale;items:CartItem[];draft:CheckoutDraft;setDraft:(d:CheckoutDraft)=>void;onSaved:()=>void;onBusy:(busy:boolean)=>void}){
+ const t=checkoutCopy(locale),[ready,setReady]=useState<boolean|null>(null),[busy,setBusy]=useState(false),[error,setError]=useState<'error'|'invalid'|'limited'|''>(''),[review,setReview]=useState(false),[receipt,setReceipt]=useState<{reference:string;pricing:Pricing;draft:CheckoutDraft}|null>(null);
+ const container=useRef<HTMLDivElement>(null);
+ useEffect(()=>{container.current?.closest('dialog')?.scrollTo({top:0});},[review,receipt]);
+ const attempt=useRef({id:'',signature:''}),sending=useRef(false),honeypot=useRef<HTMLInputElement>(null);
+ const pricing=quote(items,draft.wilayaId,draft.deliveryMethod);
+ async function check(){setReady(null);if(githubPages){setReady(false);return;}try{const r=await fetch('/api/order',{cache:'no-store'});setReady(r.ok&&(await r.json()).available===true);}catch{setReady(false)}}
+ useEffect(()=>{void check();},[]);
+ const update=(key:keyof CheckoutDraft,value:string|boolean)=>{setDraft({...draft,[key]:value});setError('');};
+ function reviewOrder(e:FormEvent<HTMLFormElement>){e.preventDefault();if(!e.currentTarget.checkValidity()||!pricing||!draft.firstName.trim()||!draft.lastName.trim()||!/^[+\d ()-]{7,24}$/.test(draft.phone)||draft.phone.replace(/\D/g,'').length<7||(draft.deliveryMethod==='home'&&draft.address.trim().length<5)){setError('invalid');return;}setError('');setReview(true);}
+ async function submit(){if(!pricing||sending.current||!ready)return;sending.current=true;setBusy(true);onBusy(true);setError('');const payload={...draft,address:draft.deliveryMethod==='home'?draft.address:'',items,expectedTotal:pricing.total,website:honeypot.current?.value||''};const signature=JSON.stringify(payload);if(attempt.current.signature!==signature)attempt.current={id:crypto.randomUUID(),signature};try{const r=await fetch('/api/order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...payload,id:attempt.current.id})});const data=await r.json();if(!r.ok){setError(r.status===429?'limited':'error');return;}setReceipt({reference:data.reference,pricing,draft:{...draft}});onSaved();}catch{setError('error')}finally{sending.current=false;setBusy(false);onBusy(false)}}
+ if(receipt)return <div ref={container} className="mt-6 space-y-5"><div role="status"><h3 className="text-xl">{t.saved}</h3><p className="mt-3 break-all">{t.reference}: <bdi>{receipt.reference}</bdi></p><p className="mt-3 text-sm text-ink-56">{t.contact}</p></div><OrderSummary {...receipt} locale={locale}/></div>;
+ return <div ref={container} className="mt-6 space-y-5">{ready!==true&&<div role="status" className="rounded-xl bg-ink-04 p-4 text-sm">{ready===null?t.loading:t.service}{ready===false&&<button onClick={check} className="mt-3 block underline">{t.retry}</button>}</div>}
+ {review&&pricing?<><OrderSummary pricing={pricing} draft={draft} locale={locale}/><button disabled={busy} className="wiz-control" onClick={()=>setReview(false)}>{t.edit}</button><button onClick={submit} disabled={busy||!ready} className="w-full rounded-full bg-ink p-4 text-paper disabled:opacity-50">{busy?t.saving:t.confirm}</button></>:<form noValidate onSubmit={reviewOrder} className="space-y-4"><h3 className="text-xl">{t.details}</h3><div className="grid gap-4 sm:grid-cols-2">{(['firstName','lastName','phone','email'] as const).map(key=><label key={key} className="block text-sm">{t[key]} *<input className="mt-2 w-full rounded-xl border border-ink-24 bg-paper p-3" name={key} required value={draft[key]} onChange={e=>update(key,e.target.value)} maxLength={key==='email'?150:key==='phone'?24:70} type={key==='email'?'email':key==='phone'?'tel':'text'} autoComplete={{firstName:'given-name',lastName:'family-name',phone:'tel',email:'email'}[key]}/></label>)}</div>
+ <label className="block text-sm">{t.wilaya} *<select name="wilayaId" required value={draft.wilayaId} onChange={e=>update('wilayaId',e.target.value)} className="mt-2 w-full rounded-xl border border-ink-24 bg-paper p-3"><option value="">{t.choose}</option>{deliveryRates.map(rate=><option key={rate.id} value={rate.id} disabled={!rate.available}>{rate.id} — {rate.name[locale]}{!rate.available?` — ${t.unavailable}`:''}</option>)}</select></label>
+ <fieldset><legend className="mb-3 text-sm">{t.method} *</legend><div className="grid gap-3 sm:grid-cols-2">{(['home','stopdesk'] as const).map(method=><label key={method} className={`flex items-start gap-3 rounded-xl border p-4 ${draft.deliveryMethod===method?'border-ink':'border-ink-12'}`}><input type="radio" name="deliveryMethod" value={method} checked={draft.deliveryMethod===method} onChange={()=>update('deliveryMethod',method)} className="mt-1"/><span>{t[method]}{draft.wilayaId&&<small className="mt-1 block">{deliveryRates.find(r=>r.id===draft.wilayaId)?.[method]===null?t.unavailable:money(deliveryRates.find(r=>r.id===draft.wilayaId)?.[method]||0,locale)}</small>}</span></label>)}</div></fieldset>
+ {draft.deliveryMethod==='home'?<label className="block text-sm">{t.address} *<textarea name="address" required minLength={5} maxLength={300} autoComplete="street-address" value={draft.address} onChange={e=>update('address',e.target.value)} className="mt-2 w-full rounded-xl border border-ink-24 p-3"/></label>:<p className="text-sm text-ink-56">{t.pickup}</p>}
+ <label className="block text-sm">{t.note}<textarea name="note" maxLength={1000} value={draft.note} onChange={e=>update('note',e.target.value)} className="mt-2 w-full rounded-xl border border-ink-24 p-3"/></label><input ref={honeypot} name="website" hidden tabIndex={-1} autoComplete="off"/>
+ <label className="flex gap-3 text-xs leading-relaxed"><input name="consent" type="checkbox" required checked={draft.consent} onChange={e=>update('consent',e.target.checked)}/>{t.consent}</label>
+ <div aria-live="polite">{pricing?<Totals pricing={pricing} locale={locale}/>:<p className="text-sm text-ink-56">{t.selectRate}</p>}</div><button className="w-full rounded-full bg-ink p-4 text-paper">{t.review}</button></form>}{error&&<p role="alert" className="rounded-xl border border-ink-24 p-4 text-sm">{t[error]}</p>}</div>;
 }

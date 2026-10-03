@@ -16,12 +16,12 @@ export function CataloguePageHeader({
   eyebrow: string;
   title: React.ReactNode;
   intro?: React.ReactNode;
-  locale?: 'en' | 'fr';
+  locale?: 'en' | 'fr' | 'ar';
 }) {
   return (
     <header className="shell pt-32 pb-16 md:pt-44 md:pb-20">
       <Reveal distance={12}>
-        <nav aria-label={locale === 'fr' ? "Fil d’Ariane" : "Breadcrumb"}>
+        <nav aria-label={locale === "ar" ? "مسار التنقل" : locale === "fr" ? "Fil d’Ariane" : "Breadcrumb"}>
           <ol className="flex flex-wrap items-center gap-2 text-[0.8125rem] text-ink-40">
             {crumbs.map((crumb, index) => (
               <li key={`${crumb.label}-${index}`} className="flex items-center gap-2">

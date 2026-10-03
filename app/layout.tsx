@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Inter, Space_Grotesk, Noto_Sans_Arabic } from "next/font/google";
 
 import { Footer } from "@/components/layout/footer";
 import { Nav } from "@/components/layout/nav";
@@ -10,6 +10,8 @@ import { product, site } from "@/lib/content";
 
 import "./globals.css";
 import { CartProvider } from "@/components/order/cart";
+
+const arabic = Noto_Sans_Arabic({ subsets: ["arabic"], weight: ["400", "500", "600", "700"], variable: "--font-arabic", display: "swap" });
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -83,7 +85,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${spaceGrotesk.variable} ${inter.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${spaceGrotesk.variable} ${inter.variable} ${arabic.variable}`}>
       <body className="bg-paper text-ink antialiased">
         <SkipLink />
         <CartProvider><SmoothScroll>

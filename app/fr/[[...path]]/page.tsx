@@ -1,3 +1,4 @@
+import { CollectionRoute } from '@/components/catalogue/collection-route';
 import { redirect } from 'next/navigation';
 import { CourseProduct } from '@/components/catalogue/course-product';
 import type { Metadata } from 'next';
@@ -47,13 +48,6 @@ export default async function FrenchPage({ params }: { params: Promise<Params> }
   if (!frenchPaths.includes(path)) notFound();
   if (path === '/') return <div lang="fr"><FrenchHome /></div>;
   const parts = path.slice(1).split('/');
-  if (parts[0] === 'courses') {
-    const year = parts[1] ? Number(parts[1].replace('year-', '')) : undefined;
-    const course = courses.find(c => courseHref(c) === path);
-    const crumbs = [{ label: 'The Wiz', href: '/fr' }, { label: 'Collections', href: '/fr/courses' }, ...(year ? [{ label: frenchYear(year), href: `/fr/courses/year-${year}` }] : []), ...(course ? [{ label: course.title }] : [])];
-    return <div lang="fr"><CataloguePageHeader locale="fr" crumbs={crumbs} eyebrow={course ? `THE WIZ · ${frenchYear(course.year)} · ${course.category === 'Integrated units' ? 'Unités d’enseignement intégrées' : 'Modules'}` : 'Collection MedWIZ · Médecine'} title={course ? course.title : year ? <>{frenchYear(year)}.<br /><span className="text-ink-40">Une matière à la fois.</span></> : <>Votre année.<br /><span className="text-ink-40">Vos cours. Votre livre.</span></>} intro={course ? 'Un livre de révision MedWIZ : des résumés de cours et des pages dédiées à vos notes, selon le programme algérien. Feuilletez le livre avant de commander.' : 'Découvrez les collections THE WIZ, conçues pour accompagner votre parcours d’études. Retrouvez des résumés de cours classés selon le programme algérien, ainsi que des pages dédiées à vos propres notes. Feuilletez les premières pages de chaque livre avant de commander.'} />
-      {course ? <CourseProduct course={course} locale="fr" /> : <CourseLibrary year={year} locale="fr" />}
-    </div>;
-  }
+  if (parts[0] === 'courses') return <CollectionRoute path={path} locale="fr"/>;
   redirect('/fr/courses');
 }

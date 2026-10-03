@@ -1,5 +1,13 @@
-export type Locale = 'en' | 'fr';
-export const isFrenchPath = (path: string) => path === '/fr' || path.startsWith('/fr/');
-export const localizedPath = (path: string, locale: Locale) => locale === 'fr' ? `/fr${path === '/' ? '' : path}` : path;
-export const frenchNav: Record<string, string> = { Collections: 'Collections', Why: 'Pourquoi', Inside: 'À découvrir', Books: 'Livres', FAQ: 'FAQ' };
+export type Locale = 'en' | 'fr' | 'ar';
+export const locales: Locale[] = ['en','fr','ar'];
+export const localeFromPath = (path: string): Locale => /^\/ar(?:\/|$)/.test(path) ? 'ar' : /^\/fr(?:\/|$)/.test(path) ? 'fr' : 'en';
+export const isFrenchPath = (path: string) => localeFromPath(path)==='fr';
+export const basePath = (path: string) => path.replace(/^\/(fr|ar)(?=\/|$)/,'').replace(/\/$/,'') || '/';
+export const localizedPath = (path: string, locale: Locale) => locale === 'en' ? path : `/${locale}${path === '/' ? '' : path}`;
+export const tr = (locale:Locale,en:string,fr:string,ar:string) => ({en,fr,ar})[locale];
+export const frenchNav: Record<string, string> = { Collections:'Collections', Why:'Pourquoi', Inside:'À découvrir', FAQ:'FAQ' };
 export const frenchYear = (year: number) => `${year}${year === 1 ? 're' : 'e'} année`;
+export const yearName = (year:number,locale:Locale) => tr(locale,`Year ${year}`,frenchYear(year),`السنة ${['','الأولى','الثانية','الثالثة','الرابعة','الخامسة','السادسة'][year]}`);
+export const moduleTerm = (year:number|undefined,locale:Locale) => year===2||year===3||!year ? tr(locale,'Module / UEI','Module / UEI','وحدة / وحدة تعليمية مدمجة') : tr(locale,'Module','Module','وحدة');
+export const yearSlogan = (year:number,locale:Locale) => year===2||year===3 ? tr(locale,'One module / UEI at a time.','Un module / UEI à la fois.','وحدة أو وحدة تعليمية مدمجة في كل خطوة.') : tr(locale,'One module at a time.','Un module à la fois.','وحدة في كل خطوة.');
+export const money = (amount:number,locale:Locale) => new Intl.NumberFormat(locale==='ar'?'ar-DZ':locale==='fr'?'fr-DZ':'en-GB',{style:'currency',currency:'DZD',maximumFractionDigits:0}).format(amount);

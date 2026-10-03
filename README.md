@@ -26,11 +26,11 @@ Each book uses the original first PDF page as its cover. The reader advances dir
 - Authentication uses an eight-hour HTTP-only session cookie. Admin reads/exports require authentication; mutations require the same origin. Login/order attempts are rate-limited, and order submissions are validated and idempotent.
 - For local development only, set `ORDERS_STORAGE=local` in ignored `.env.local`. Orders are stored under ignored `.data/orders/`. Local data and credentials are excluded from the deployment bundle.
 - A local admin password has been generated in `.env.local`; copy it to the local login form. Set a separate production password in Netlify if desired.
-- GitHub Pages cannot run a private database/API: it retains an email-order fallback. If the Netlify password is not configured, the form also falls back to email rather than pretending to save an order.
+- GitHub Pages cannot run a private database/API. Checkout remains visible, but confirmation is disabled when the server is unavailable or WIZ_ADMIN_PASSWORD is missing. Orders require the Netlify/Next.js deployment.
 - No automatic email notification is sent. New orders are received in the admin table; press **Actualiser** to refresh.
 - To run the API regression checks, start a local server on port 3101 with `ORDERS_TEST_MODE=true`, then run `node scripts/test-orders.mjs`. Synthetic orders are isolated under `.data/order-tests` and removed by the test.
 
-English lives at `/`, French at `/fr`. The language switch preserves the current page. Legacy sample-catalogue URLs redirect to the real collection; the old sample bundles are not sold.
+English lives at `/`, French at `/fr`, and Arabic at `/ar` with RTL layout. The language switch preserves the current page. Legacy sample-catalogue URLs redirect to the real collection; the old sample bundles are not sold.
 
 ## Main files
 
@@ -59,8 +59,18 @@ The reader never loads original full PDFs. Its images are rendered from the trun
 
 Netlify uses `netlify.toml` and the standard Next.js build. The site URL comes from `NEXT_PUBLIC_SITE_URL`, Netlify's `URL`, or `DEPLOY_PRIME_URL`.
 
-GitHub Pages exports into `.next-pages` with the `/the-wiz` base path; the workflow publishes on pushes to main. It supports email requests only. The private order inbox requires the Netlify/Next.js deployment.
+GitHub Pages exports into `.next-pages` with the `/the-wiz` base path; the workflow publishes on pushes to main. It displays the cart and price calculator, but cannot save orders. The private order inbox requires the Netlify/Next.js deployment.
 
 ## Multi-book cart
 
-The bilingual cart saves course IDs and quantities in this browser’s local storage (no customer contact details). Customers can add several courses, change quantities or remove books, then submit one delivery form. A successful save clears the cart and provides an order reference. The admin table shows all books under that reference; the Excel CSV contains one row per book. Historical single-book orders remain supported. Prices and delivery charges are confirmed by the team.
+The bilingual cart saves course IDs and quantities in this browser’s local storage (no customer contact details). Customers can add several courses, change quantities or remove books, then submit one delivery form. A successful save clears the cart and provides an order reference. The admin table shows all books under that reference; the Excel CSV contains one row per book. Historical single-book orders remain supported. Prices and delivery charges are shown before confirmation and independently recalculated by the server.
+
+## V3 pricing, delivery and languages
+
+- `lib/book-details.json` owns prices, availability and EN/FR/AR titles for the 49 books; PDF identities and preview paths remain stable. The requested V3 display names are used, including year 3 Anatomie, year 4 Pneumo-Physiologie and year 6 Psychiatrie-Gériatrie, per owner confirmation.
+- `lib/delivery-rates.json` owns the supplied 58-wilaya tariff independently of book prices. Destinations 50, 54 and 56 are unavailable. Rates are supplied business data, not live courier quotes.
+- `lib/commerce.ts` validates items and calculates books subtotal + one delivery fee. Client-supplied prices are never trusted; expected totals must match the server calculation.
+- Checkout requires first and last names, phone, email and a wilaya. Home delivery requires an address; stopdesk discards the home address from the stored order. Review precedes confirmation; the saved receipt retains all ordered items and amounts.
+- Cart items and delivery selection persist in local storage. Customer contact fields stay in React memory while changing language, and are cleared after success. The protected order store retains the submitted customer data.
+- Admin displays historical price snapshots. Excel CSV uses one row per book, with order subtotal/delivery/total on the first row only to avoid counting delivery repeatedly. Older orders without prices still display.
+- The header wordmark remains until the owner supplies the circular logo image.

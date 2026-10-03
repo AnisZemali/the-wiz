@@ -1,0 +1,443 @@
+{
+  "1-anatomie": {
+    "title": {
+      "en": "Anatomy",
+      "fr": "Anatomie",
+      "ar": "التشريح"
+    },
+    "price": 1000,
+    "available": true
+  },
+  "1-biochimie": {
+    "title": {
+      "en": "Biochemistry",
+      "fr": "Biochimie",
+      "ar": "الكيمياء الحيوية"
+    },
+    "price": 700,
+    "available": true
+  },
+  "1-biophysique": {
+    "title": {
+      "en": "Biophysics",
+      "fr": "Biophysique",
+      "ar": "الفيزياء الحيوية"
+    },
+    "price": 700,
+    "available": true
+  },
+  "1-biostatistiques": {
+    "title": {
+      "en": "Biostatistics",
+      "fr": "Biostatistiques",
+      "ar": "الإحصاء الحيوي"
+    },
+    "price": 500,
+    "available": true
+  },
+  "1-chimie": {
+    "title": {
+      "en": "Chemistry",
+      "fr": "Chimie",
+      "ar": "الكيمياء"
+    },
+    "price": 600,
+    "available": true
+  },
+  "1-cytologie": {
+    "title": {
+      "en": "Cytology",
+      "fr": "Cytologie",
+      "ar": "علم الخلية"
+    },
+    "price": 500,
+    "available": true
+  },
+  "1-embryologie": {
+    "title": {
+      "en": "Embryology",
+      "fr": "Embryologie",
+      "ar": "علم الأجنة"
+    },
+    "price": 500,
+    "available": true
+  },
+  "1-histologie": {
+    "title": {
+      "en": "Histology",
+      "fr": "Histologie",
+      "ar": "علم الأنسجة"
+    },
+    "price": 400,
+    "available": true
+  },
+  "1-informatique": {
+    "title": {
+      "en": "Computer science",
+      "fr": "Informatique",
+      "ar": "الإعلام الآلي"
+    },
+    "price": 400,
+    "available": true
+  },
+  "1-physiologie": {
+    "title": {
+      "en": "Physiology",
+      "fr": "Physiologie",
+      "ar": "علم وظائف الأعضاء"
+    },
+    "price": 400,
+    "available": true
+  },
+  "1-sante-societe-et-humanite": {
+    "title": {
+      "en": "Health, society and humanities",
+      "fr": "Santé, société et humanité",
+      "ar": "الصحة والمجتمع والعلوم الإنسانية"
+    },
+    "price": 500,
+    "available": true
+  },
+  "1-secourisme": {
+    "title": {
+      "en": "First aid",
+      "fr": "Secourisme",
+      "ar": "الإسعافات الأولية"
+    },
+    "price": 300,
+    "available": true
+  },
+  "2-appareil-cardio-respiratoire-et-organes-hematopoietiques": {
+    "title": {
+      "en": "Cardiorespiratory system",
+      "fr": "Appareil cardio-respiratoire",
+      "ar": "الجهاز القلبي التنفسي"
+    },
+    "price": 900,
+    "available": true
+  },
+  "2-appareil-digestif": {
+    "title": {
+      "en": "Digestive system",
+      "fr": "Appareil digestif",
+      "ar": "الجهاز الهضمي"
+    },
+    "price": 700,
+    "available": true
+  },
+  "2-appareil-endocrino-genital": {
+    "title": {
+      "en": "Endocrine and reproductive system",
+      "fr": "Appareil endocrino-génital",
+      "ar": "جهاز الغدد الصماء والتناسل"
+    },
+    "price": 800,
+    "available": true
+  },
+  "2-appareil-urinaire": {
+    "title": {
+      "en": "Urinary system",
+      "fr": "Appareil urinaire",
+      "ar": "الجهاز البولي"
+    },
+    "price": 500,
+    "available": true
+  },
+  "2-systeme-nerveux-et-organes-des-sens": {
+    "title": {
+      "en": "Nervous system",
+      "fr": "Système nerveux",
+      "ar": "الجهاز العصبي"
+    },
+    "price": 800,
+    "available": true
+  },
+  "2-genetique": {
+    "title": {
+      "en": "Genetics",
+      "fr": "Génétique",
+      "ar": "علم الوراثة"
+    },
+    "price": 600,
+    "available": true
+  },
+  "2-immunologie-1": {
+    "title": {
+      "en": "Immunology (1)",
+      "fr": "Immunologie (1)",
+      "ar": "علم المناعة (١)"
+    },
+    "price": 500,
+    "available": true
+  },
+  "3-appareil-digestif-et-organes-hematopoietiques": {
+    "title": {
+      "en": "Digestive system",
+      "fr": "Appareil digestif",
+      "ar": "الجهاز الهضمي"
+    },
+    "price": 800,
+    "available": true
+  },
+  "3-appareil-endocrinien-de-reproduction-et-urinaire": {
+    "title": {
+      "en": "Endocrine system",
+      "fr": "Appareil endocrinien",
+      "ar": "جهاز الغدد الصماء"
+    },
+    "price": 700,
+    "available": true
+  },
+  "3-appareil-neurologique-locomoteur-et-cutane": {
+    "title": {
+      "en": "Neurological system",
+      "fr": "Appareil neurologique",
+      "ar": "الجهاز العصبي"
+    },
+    "price": 700,
+    "available": true
+  },
+  "3-psychologie-medicale-semiologie-generale-et-appareil-cardio-respiratoire": {
+    "title": {
+      "en": "Medical psychology",
+      "fr": "Psychologie médicale",
+      "ar": "علم النفس الطبي"
+    },
+    "price": 1200,
+    "available": true
+  },
+  "3-anatomopathologie": {
+    "title": {
+      "en": "Anatomy",
+      "fr": "Anatomie",
+      "ar": "التشريح"
+    },
+    "price": 600,
+    "available": true
+  },
+  "3-immunologie-2": {
+    "title": {
+      "en": "Immunology (2)",
+      "fr": "Immunologie (2)",
+      "ar": "علم المناعة (٢)"
+    },
+    "price": 500,
+    "available": true
+  },
+  "3-microbiologie": {
+    "title": {
+      "en": "Microbiology",
+      "fr": "Microbiologie",
+      "ar": "علم الأحياء الدقيقة"
+    },
+    "price": 700,
+    "available": true
+  },
+  "3-parasitologie-mycologie": {
+    "title": {
+      "en": "Parasitology and mycology",
+      "fr": "Parasitologie-Mycologie",
+      "ar": "علم الطفيليات والفطريات"
+    },
+    "price": 700,
+    "available": true
+  },
+  "3-pharmacologie": {
+    "title": {
+      "en": "Pharmacology",
+      "fr": "Pharmacologie",
+      "ar": "علم الأدوية"
+    },
+    "price": 600,
+    "available": true
+  },
+  "4-cardiologie": {
+    "title": {
+      "en": "Cardiology",
+      "fr": "Cardiologie",
+      "ar": "طب القلب"
+    },
+    "price": 700,
+    "available": true
+  },
+  "4-hepato-gastro-enterologie": {
+    "title": {
+      "en": "Hepatology and gastroenterology",
+      "fr": "Hépato-gastro-entérologie",
+      "ar": "طب الكبد والجهاز الهضمي"
+    },
+    "price": 800,
+    "available": true
+  },
+  "4-maladies-infectieuses": {
+    "title": {
+      "en": "Infectious diseases",
+      "fr": "Maladies infectieuses",
+      "ar": "الأمراض المعدية"
+    },
+    "price": 700,
+    "available": true
+  },
+  "4-neurologie": {
+    "title": {
+      "en": "Neurology",
+      "fr": "Neurologie",
+      "ar": "طب الأعصاب"
+    },
+    "price": 800,
+    "available": true
+  },
+  "4-onco-hematologie": {
+    "title": {
+      "en": "Oncology and hematology",
+      "fr": "Onco-Hématologie",
+      "ar": "طب الأورام وأمراض الدم"
+    },
+    "price": 700,
+    "available": true
+  },
+  "4-pneumo-phtisiologie": {
+    "title": {
+      "en": "Pulmonary physiology",
+      "fr": "Pneumo-Physiologie",
+      "ar": "فيزيولوجيا الجهاز التنفسي"
+    },
+    "price": 700,
+    "available": true
+  },
+  "5-endocrinologie-maladies-metaboliques": {
+    "title": {
+      "en": "Endocrinology and metabolic diseases",
+      "fr": "Endocrinologie – Maladies métaboliques",
+      "ar": "طب الغدد الصماء والأمراض الاستقلابية"
+    },
+    "price": 700,
+    "available": true
+  },
+  "5-gynecologie-obstetrique": {
+    "title": {
+      "en": "Gynecology and obstetrics",
+      "fr": "Gynécologie-Obstétrique",
+      "ar": "طب النساء والتوليد"
+    },
+    "price": 900,
+    "available": true
+  },
+  "5-orthopedie-traumatologie-reeducation": {
+    "title": {
+      "en": "Orthopedics, trauma and rehabilitation",
+      "fr": "Orthopédie-Traumatologie-Rééducation",
+      "ar": "جراحة العظام والرضوض وإعادة التأهيل"
+    },
+    "price": 1000,
+    "available": true
+  },
+  "5-pediatrie": {
+    "title": {
+      "en": "Pediatrics",
+      "fr": "Pédiatrie",
+      "ar": "طب الأطفال"
+    },
+    "price": 1100,
+    "available": true
+  },
+  "5-sante-mentale": {
+    "title": {
+      "en": "Mental health",
+      "fr": "Santé mentale",
+      "ar": "الصحة النفسية"
+    },
+    "price": 700,
+    "available": true
+  },
+  "5-urologie-nephrologie": {
+    "title": {
+      "en": "Urology and nephrology",
+      "fr": "Urologie-Néphrologie",
+      "ar": "طب المسالك البولية والكلى"
+    },
+    "price": 900,
+    "available": true
+  },
+  "6-dermatologie": {
+    "title": {
+      "en": "Dermatology",
+      "fr": "Dermatologie",
+      "ar": "طب الجلد"
+    },
+    "price": 600,
+    "available": true
+  },
+  "6-maladies-systemiques": {
+    "title": {
+      "en": "Systemic diseases",
+      "fr": "Maladies systémiques",
+      "ar": "الأمراض الجهازية"
+    },
+    "price": 600,
+    "available": true
+  },
+  "6-medecine-d-urgence": {
+    "title": {
+      "en": "Emergency medicine",
+      "fr": "Médecine d’urgence",
+      "ar": "طب الاستعجالات"
+    },
+    "price": 700,
+    "available": true
+  },
+  "6-medecine-legale-et-droit-medical": {
+    "title": {
+      "en": "Forensic medicine and medical law",
+      "fr": "Médecine légale et droit médical",
+      "ar": "الطب الشرعي والقانون الطبي"
+    },
+    "price": 700,
+    "available": true
+  },
+  "6-ophtalmologie": {
+    "title": {
+      "en": "Ophthalmology",
+      "fr": "Ophtalmologie",
+      "ar": "طب العيون"
+    },
+    "price": 700,
+    "available": true
+  },
+  "6-oto-rhino-laryngologie": {
+    "title": {
+      "en": "Otorhinolaryngology",
+      "fr": "ORL-Rhino-Laryngologie",
+      "ar": "طب الأنف والأذن والحنجرة"
+    },
+    "price": 700,
+    "available": true
+  },
+  "6-personne-agee": {
+    "title": {
+      "en": "Psychiatry and geriatrics",
+      "fr": "Psychiatrie-Gériatrie",
+      "ar": "الطب النفسي وطب الشيخوخة"
+    },
+    "price": 700,
+    "available": true
+  },
+  "6-sante-au-travail-et-environnement": {
+    "title": {
+      "en": "Occupational and environmental health",
+      "fr": "Santé au travail et environnement",
+      "ar": "الصحة المهنية والبيئية"
+    },
+    "price": 700,
+    "available": true
+  },
+  "6-epidemiologie-methodologie-de-recherche-lecture-critique-d-article-sante-publique-economie-de-sante": {
+    "title": {
+      "en": "Epidemiology and methodology",
+      "fr": "Épidémiologie-Méthodologie",
+      "ar": "علم الأوبئة والمنهجية"
+    },
+    "price": 700,
+    "available": true
+  }
+}

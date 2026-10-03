@@ -13,11 +13,12 @@ export async function POST(request: NextRequest) {
  if (!input) return json({error:'Invalid order details'},400);
  try {
    const existing=await getValue<Order>(`orders/${input.id}`);
-   if (existing) return json({reference:existing.reference});
+   if (existing) { const matches=Object.entries(input).every(([key,value])=>JSON.stringify(existing[key as keyof Order])===JSON.stringify(value)); return matches ? json({reference:existing.reference}) : json({error:'Order reference already used'},409); }
    if (!await allowAttempt(request,'order',20)) return json({error:'Too many requests'},429);
    const now=new Date().toISOString();
    const order:Order={...input,reference:'WZ-'+input.id,createdAt:now,updatedAt:now,status:'new'};
-   await putValue(`orders/${input.id}`,order,true);
+   const created=await putValue(`orders/${input.id}`,order,true);
+   if(!created)return json({error:'Order already submitted; retry to retrieve confirmation'},409);
    return json({reference:order.reference},201);
  } catch { return json({error:'Order could not be saved. Please try again later.'},503); }
 }
