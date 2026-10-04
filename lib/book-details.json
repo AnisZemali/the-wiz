@@ -109,9 +109,9 @@
   },
   "2-appareil-cardio-respiratoire-et-organes-hematopoietiques": {
     "title": {
-      "en": "Cardiorespiratory system",
-      "fr": "Appareil cardio-respiratoire",
-      "ar": "الجهاز القلبي التنفسي"
+      "en": "Cardiorespiratory system and hematopoietic organs",
+      "fr": "Appareil cardio-respiratoire et organes hématopoïétiques",
+      "ar": "الجهاز القلبي التنفسي والأعضاء المكوّنة للدم"
     },
     "price": 900,
     "available": true
@@ -145,9 +145,9 @@
   },
   "2-systeme-nerveux-et-organes-des-sens": {
     "title": {
-      "en": "Nervous system",
-      "fr": "Système nerveux",
-      "ar": "الجهاز العصبي"
+      "en": "Nervous system and sensory organs",
+      "fr": "Système nerveux et organes des sens",
+      "ar": "الجهاز العصبي وأعضاء الحس"
     },
     "price": 800,
     "available": true
@@ -172,45 +172,45 @@
   },
   "3-appareil-digestif-et-organes-hematopoietiques": {
     "title": {
-      "en": "Digestive system",
-      "fr": "Appareil digestif",
-      "ar": "الجهاز الهضمي"
+      "en": "Digestive system and hematopoietic organs",
+      "fr": "Appareil digestif et organes hématopoïétiques",
+      "ar": "الجهاز الهضمي والأعضاء المكوّنة للدم"
     },
     "price": 800,
     "available": true
   },
   "3-appareil-endocrinien-de-reproduction-et-urinaire": {
     "title": {
-      "en": "Endocrine system",
-      "fr": "Appareil endocrinien",
-      "ar": "جهاز الغدد الصماء"
+      "en": "Endocrine, reproductive and urinary systems",
+      "fr": "Appareil endocrinien, de reproduction et urinaire",
+      "ar": "أجهزة الغدد الصماء والتناسل والبول"
     },
     "price": 700,
     "available": true
   },
   "3-appareil-neurologique-locomoteur-et-cutane": {
     "title": {
-      "en": "Neurological system",
-      "fr": "Appareil neurologique",
-      "ar": "الجهاز العصبي"
+      "en": "Nervous, musculoskeletal and integumentary systems",
+      "fr": "Appareil neurologique-locomoteur et cutané",
+      "ar": "الأجهزة العصبية والحركية والجلدية"
     },
     "price": 700,
     "available": true
   },
   "3-psychologie-medicale-semiologie-generale-et-appareil-cardio-respiratoire": {
     "title": {
-      "en": "Medical psychology",
-      "fr": "Psychologie médicale",
-      "ar": "علم النفس الطبي"
+      "en": "Medical psychology, general semiology and cardiorespiratory system",
+      "fr": "Psychologie médicale, sémiologie générale et appareil cardio-respiratoire",
+      "ar": "علم النفس الطبي وعلم الأعراض العام والجهاز القلبي التنفسي"
     },
     "price": 1200,
     "available": true
   },
   "3-anatomopathologie": {
     "title": {
-      "en": "Anatomy",
-      "fr": "Anatomie",
-      "ar": "التشريح"
+      "en": "Anatomical pathology",
+      "fr": "Anatomopathologie",
+      "ar": "علم التشريح المرضي"
     },
     "price": 600,
     "available": true
@@ -263,7 +263,7 @@
   "4-hepato-gastro-enterologie": {
     "title": {
       "en": "Hepatology and gastroenterology",
-      "fr": "Hépato-gastro-entérologie",
+      "fr": "Hépato-Gastro-Entérologie",
       "ar": "طب الكبد والجهاز الهضمي"
     },
     "price": 800,
@@ -298,9 +298,9 @@
   },
   "4-pneumo-phtisiologie": {
     "title": {
-      "en": "Pulmonary physiology",
-      "fr": "Pneumo-Physiologie",
-      "ar": "فيزيولوجيا الجهاز التنفسي"
+      "en": "Pulmonology and tuberculosis",
+      "fr": "Pneumo-Phtisiologie",
+      "ar": "طب أمراض الرئة والسل"
     },
     "price": 700,
     "available": true
@@ -308,7 +308,7 @@
   "5-endocrinologie-maladies-metaboliques": {
     "title": {
       "en": "Endocrinology and metabolic diseases",
-      "fr": "Endocrinologie – Maladies métaboliques",
+      "fr": "Endocrinologie-Maladies métaboliques",
       "ar": "طب الغدد الصماء والأمراض الاستقلابية"
     },
     "price": 700,
@@ -407,7 +407,7 @@
   "6-oto-rhino-laryngologie": {
     "title": {
       "en": "Otorhinolaryngology",
-      "fr": "ORL-Rhino-Laryngologie",
+      "fr": "Oto-Rhino-Laryngologie",
       "ar": "طب الأنف والأذن والحنجرة"
     },
     "price": 700,
@@ -415,9 +415,9 @@
   },
   "6-personne-agee": {
     "title": {
-      "en": "Psychiatry and geriatrics",
-      "fr": "Psychiatrie-Gériatrie",
-      "ar": "الطب النفسي وطب الشيخوخة"
+      "en": "Older adults",
+      "fr": "Personne âgée",
+      "ar": "كبار السن"
     },
     "price": 700,
     "available": true
@@ -433,9 +433,9 @@
   },
   "6-epidemiologie-methodologie-de-recherche-lecture-critique-d-article-sante-publique-economie-de-sante": {
     "title": {
-      "en": "Epidemiology and methodology",
-      "fr": "Épidémiologie-Méthodologie",
-      "ar": "علم الأوبئة والمنهجية"
+      "en": "Epidemiology, research methodology, critical appraisal, public health and health economics",
+      "fr": "Épidémiologie-Méthodologie de recherche-Lecture critique d'article-Santé publique-Économie de santé",
+      "ar": "علم الأوبئة ومنهجية البحث والقراءة النقدية للمقالات والصحة العامة واقتصاد الصحة"
     },
     "price": 700,
     "available": true

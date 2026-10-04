@@ -1,28 +1,23 @@
-import { NextRequest } from 'next/server';
-import { authorized, sameOrigin, json, body } from '@/lib/admin-auth';
-import { listOrders, getValue, putValue } from '@/lib/order-store';
-import { orderStatuses, type Order, type OrderStatus } from '@/lib/order-types';
-import { ordersCsv } from '@/lib/order-validation';
-export const runtime = 'nodejs';
-export const dynamic = 'force-dynamic';
-export async function GET(request: NextRequest) {
-  if (!authorized(request)) return json({ error: 'Connexion requise.' }, 401);
-  try {
-    const orders = await listOrders();
-    if (request.nextUrl.searchParams.get('export') === 'csv') return new Response(ordersCsv(orders), { headers: { 'Content-Type': 'text/csv; charset=utf-8', 'Content-Disposition': `attachment; filename="the-wiz-commandes-${new Date().toISOString().slice(0,10)}.csv"`, 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' } });
-    return json({ orders });
-  } catch { return json({ error: 'Impossible de charger les commandes.' }, 503); }
-}
-export async function PATCH(request: NextRequest) {
-  if (!authorized(request)) return json({ error: 'Connexion requise.' }, 401);
-  if (!sameOrigin(request)) return json({ error: 'Origine refusée.' }, 403);
-  try {
-    const input = await body(request);
-    if (typeof input.id !== 'string' || !/^[a-f0-9-]{36}$/i.test(input.id) || !orderStatuses.includes(input.status as OrderStatus)) return json({ error: 'Statut invalide.' }, 400);
-    const order = await getValue<Order>(`orders/${input.id}`);
-    if (!order) return json({ error: 'Commande introuvable.' }, 404);
-    const updated = { ...order, status: input.status as OrderStatus, updatedAt: new Date().toISOString() };
-    await putValue(`orders/${order.id}`, updated);
-    return json({ order: updated });
-  } catch { return json({ error: 'La modification n’a pas été enregistrée.' }, 503); }
-}
+import {NextRequest} from 'next/server';
+import {authorized,sameOrigin,json,body} from '@/lib/admin-auth';
+import {listOrders,getValue,putValue,deleteValue} from '@/lib/order-store';
+import {orderStatuses,type Order,type OrderStatus} from '@/lib/order-types';
+import {ordersCsv} from '@/lib/order-validation';
+import {courses} from '@/lib/courses';
+export const runtime='nodejs';
+export const dynamic='force-dynamic';
+const validId=(id:unknown):id is string=>typeof id==='string'&&/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(id);
+function guard(request:NextRequest){if(!authorized(request))return json({error:'Connexion requise.'},401);if(!sameOrigin(request))return json({error:'Origine refusée.'},403);return null;}
+export async function GET(request:NextRequest){if(!authorized(request))return json({error:'Connexion requise.'},401);try{const orders=await listOrders();if(request.nextUrl.searchParams.get('export')==='csv')return new Response(ordersCsv(orders),{headers:{'Content-Type':'text/csv; charset=utf-8','Content-Disposition':`attachment; filename="the-wiz-commandes-${new Date().toISOString().slice(0,10)}.csv"`,'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});return json({orders});}catch{return json({error:'Impossible de charger les commandes.'},503)}}
+export async function PATCH(request:NextRequest){const denied=guard(request);if(denied)return denied;let input;try{input=await body(request)}catch{return json({error:'Données invalides.'},400)}
+ if(!validId(input.id)||(!Object.hasOwn(input,'status')&&!Object.hasOwn(input,'deliveryFee')))return json({error:'Modification invalide.'},400);
+ if(input.status!==undefined&&!orderStatuses.includes(input.status as OrderStatus))return json({error:'Statut invalide.'},400);
+ if(input.deliveryFee!==undefined&&(!Number.isInteger(input.deliveryFee)||Number(input.deliveryFee)<0||Number(input.deliveryFee)>50000))return json({error:'Frais de livraison invalides.'},400);
+ try{const order=await getValue<Order>(`orders/${input.id}`);if(!order)return json({error:'Commande introuvable.'},404);if(order.kind==='gift')return json({error:'Un livre offert ne peut pas devenir une vente.'},400);
+ if(input.deliveryFee!==undefined&&(order.subtotal===undefined||!Number.isFinite(order.subtotal)))return json({error:'Le sous-total de cette ancienne commande est inconnu.'},400);
+ const updated:Order={...order,updatedAt:new Date().toISOString(),...(input.status!==undefined?{status:input.status as OrderStatus}:{}),...(input.deliveryFee!==undefined?{originalDeliveryFee:order.originalDeliveryFee??order.deliveryFee,deliveryFee:Number(input.deliveryFee),total:order.subtotal!+Number(input.deliveryFee)}:{})};
+ await putValue(`orders/${order.id}`,updated);return json({order:updated});}catch{return json({error:'La modification n’a pas été enregistrée.'},503)}}
+export async function DELETE(request:NextRequest){const denied=guard(request);if(denied)return denied;let input;try{input=await body(request)}catch{return json({error:'Données invalides.'},400)}if(!validId(input.id)||input.confirm!==true)return json({error:'Confirmation requise.'},400);try{await deleteValue(`orders/${input.id}`);return json({deleted:input.id});}catch{return json({error:'Suppression impossible.'},503)}}
+export async function POST(request:NextRequest){const denied=guard(request);if(denied)return denied;let input;try{input=await body(request)}catch{return json({error:'Données invalides.'},400)}const course=courses.find(c=>c.id===input.courseId);if(!validId(input.id)||!course||!Number.isInteger(input.quantity)||Number(input.quantity)<1||Number(input.quantity)>100||typeof input.recipient!=='string'||input.recipient.length>150||typeof input.note!=='string'||input.note.length>1000)return json({error:'Livre offert invalide.'},400);
+ const now=new Date().toISOString(),quantity=Number(input.quantity),recipient=input.recipient.trim();const gift:Order={id:input.id,kind:'gift',reference:'WZG-'+input.id,createdAt:now,updatedAt:now,status:'gifted',items:[{courseId:course.id,title:course.title,year:course.year,quantity,unitPrice:0,lineTotal:0}],courseId:course.id,title:course.title,year:course.year,quantity,name:recipient,phone:'',email:'',wilaya:'',address:'',note:input.note.trim(),subtotal:0,deliveryFee:0,total:0};
+ try{const existing=await getValue<Order>(`orders/${gift.id}`);if(existing)return existing.kind==='gift'&&existing.courseId===gift.courseId&&existing.quantity===quantity&&existing.name===recipient&&existing.note===gift.note?json({order:existing}):json({error:'Référence déjà utilisée.'},409);const created=await putValue(`orders/${gift.id}`,gift,true);if(!created)return json({error:'Référence déjà utilisée. Réessayez.'},409);return json({order:gift},201);}catch{return json({error:'Impossible d’enregistrer le livre offert.'},503)}}

@@ -3,7 +3,7 @@ import path from 'node:path';
 import { PDFDocument, PDFName } from 'pdf-lib';
 
 const root = path.resolve('Content/MedWIZ');
-const output = path.resolve('public/course-previews');
+const output = path.resolve('preview-source');
 // Public clones contain only the verified previews, never the original courses.
 try { await access(root); } catch (error) {
   if (error.code !== 'ENOENT') throw error;

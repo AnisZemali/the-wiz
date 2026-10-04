@@ -6,7 +6,7 @@ import { PDFDocument } from 'pdf-lib';
 
 const courses = JSON.parse(await readFile('lib/courses.generated.json', 'utf8'));
 for (const course of courses) {
-  const pdf = await PDFDocument.load(await readFile(`public/course-previews/${course.id}.pdf`));
+  const pdf = await PDFDocument.load(await readFile(`preview-source/${course.id}.pdf`));
   if (pdf.getPageCount() !== course.previewPages || course.previewPages > 10) {
     throw new Error(`Invalid public preview: ${course.id}`);
   }

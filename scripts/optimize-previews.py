@@ -5,7 +5,7 @@ from pathlib import Path
 import pymupdf
 import time
 
-root = Path(__file__).resolve().parents[1] / 'public' / 'course-previews'
+root = Path(__file__).resolve().parents[1] / 'preview-source'
 before = after = 0
 for path in sorted(root.glob('*.pdf')):
     if path.name.endswith('.optimized.pdf'):

@@ -6,7 +6,8 @@ const catalogue=details as Record<string,{title:Record<Locale,string>;price:numb
 export const courses = data.map(course => {
  const detail=catalogue[course.id];
  if(!detail)throw new Error(`Missing book details: ${course.id}`);
- return {...course,...detail,title:detail.title.fr,titles:detail.title,previewUrl:assetPath(course.previewUrl),image:assetPath(`/course-pages/${course.id}/1.webp`)};
+ const {previewUrl,...publicCourse}=course;
+ return {...publicCourse,...detail,title:detail.title.fr,titles:detail.title,image:assetPath(`/course-pages/${course.id}/1.webp`)};
 }).sort((a,b)=>a.year-b.year||a.title.localeCompare(b.title,'fr'));
 export type Course = (typeof courses)[number];
 export const courseTitle=(course:Course,locale:Locale)=>course.titles[locale];

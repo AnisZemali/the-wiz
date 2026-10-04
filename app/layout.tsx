@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   },
   description,
   keywords: [
-    "medical student notebook",
+    "medical student book",
     "medicine study notes",
     "pharmacy student notes",
     "dental medicine notes",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     "physiology notes",
     "semiology notes",
     "medical mnemonics",
-    "study notebook",
+    "study book",
     "The Wiz",
   ],
   authors: [{ name: site.name }],
@@ -55,13 +55,13 @@ export const metadata: Metadata = {
     type: "website",
     url: site.url,
     siteName: site.name,
-    title: `${site.name} — Premium study notebooks for medical students`,
+    title: `${site.name} — Premium study books for medical students`,
     description,
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} — Premium study notebooks for medical students`,
+    title: `${site.name} — Premium study books for medical students`,
     description,
   },
   robots: {

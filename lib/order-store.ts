@@ -1,5 +1,5 @@
 import { getStore } from '@netlify/blobs';
-import { mkdir, readFile, writeFile, readdir, rename } from 'node:fs/promises';
+import { mkdir, readFile, writeFile, readdir, rename, unlink } from 'node:fs/promises';
 import path from 'node:path';
 import { randomUUID, createHash } from 'node:crypto';
 import type { Order } from './order-types';
@@ -46,4 +46,10 @@ export async function allowAttempt(request: Request, action: string, max: number
   const hour = Math.floor(Date.now() / 3600000);
   for (let i = 0; i < max; i++) if (await putValue(`limits/${action}-${hour}-${hash}-${i}`, { at: Date.now() }, true)) return true;
   return false;
+}
+
+export async function deleteValue(key:string){
+ safeKey(key);
+ if(!local()){await store().delete(key);return;}
+ try{await unlink(path.join(root(),key+'.json'));}catch(e){if((e as NodeJS.ErrnoException).code!=='ENOENT')throw e;}
 }

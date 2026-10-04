@@ -48,7 +48,7 @@ English lives at `/`, French at `/fr`, and Arabic at `/ar` with RTL layout. The 
 Full source PDFs in `Content/` are ignored by Git and never served.
 
 1. Run `npm run previews` to generate fresh PDFs containing only the first ten pages.
-2. Optionally run `python scripts/optimize-previews.py` to compress the public previews.
+2. Optionally run `python scripts/optimize-previews.py` to compress the preview sources.
 3. Run `python scripts/render-preview-pages.py` (PyMuPDF and Pillow) to render the already-truncated PDFs to WebP.
 4. Run `node scripts/verify-previews.mjs`.
 5. Commit the manifest, truncated PDFs and `public/course-pages/` images together.
@@ -63,14 +63,22 @@ GitHub Pages exports into `.next-pages` with the `/the-wiz` base path; the workf
 
 ## Multi-book cart
 
-The bilingual cart saves course IDs and quantities in this browser’s local storage (no customer contact details). Customers can add several courses, change quantities or remove books, then submit one delivery form. A successful save clears the cart and provides an order reference. The admin table shows all books under that reference; the Excel CSV contains one row per book. Historical single-book orders remain supported. Prices and delivery charges are shown before confirmation and independently recalculated by the server.
+The trilingual cart saves course IDs and quantities in this browser’s local storage (no customer contact details). Customers can add several courses, change quantities or remove books, then submit one delivery form. A successful save clears the cart and provides an order reference. The admin table shows all books under that reference; the Excel CSV contains one row per book. Historical single-book orders remain supported. Prices and delivery charges are shown before confirmation and independently recalculated by the server.
 
 ## V3 pricing, delivery and languages
 
-- `lib/book-details.json` owns prices, availability and EN/FR/AR titles for the 49 books; PDF identities and preview paths remain stable. The requested V3 display names are used, including year 3 Anatomie, year 4 Pneumo-Physiologie and year 6 Psychiatrie-Gériatrie, per owner confirmation.
+- `lib/book-details.json` owns prices, availability and EN/FR/AR titles for the 49 books; PDF identities and preview paths remain stable. Full PDF titles are used, with matching English and Arabic translations and the exact V4 spelling overrides. Individual V3 prices remain unchanged.
 - `lib/delivery-rates.json` owns the supplied 58-wilaya tariff independently of book prices. Destinations 50, 54 and 56 are unavailable. Rates are supplied business data, not live courier quotes.
 - `lib/commerce.ts` validates items and calculates books subtotal + one delivery fee. Client-supplied prices are never trusted; expected totals must match the server calculation.
 - Checkout requires first and last names, phone, email and a wilaya. Home delivery requires an address; stopdesk discards the home address from the stored order. Review precedes confirmation; the saved receipt retains all ordered items and amounts.
 - Cart items and delivery selection persist in local storage. Customer contact fields stay in React memory while changing language, and are cleared after success. The protected order store retains the submitted customer data.
-- Admin displays historical price snapshots. Excel CSV uses one row per book, with order subtotal/delivery/total on the first row only to avoid counting delivery repeatedly. Older orders without prices still display.
+- Admin displays historical price snapshots. Excel CSV uses one row per ordered item (individual book or pack), with order subtotal/delivery/total on the first row only to avoid counting delivery repeatedly. Older orders without prices still display.
 - The header wordmark remains until the owner supplies the circular logo image.
+
+## V4 offers and administration
+
+- `/offers`, `/fr/offers`, `/ar/offers` list six annual packs (6000, 4500, 6000, 4000, 5000, 5500 DZD) and the complete collection (31000 DZD). Pack contents and physical book counts are captured in each order. Reference totals are calculated from actual individual prices: year 4 is 4400 DZD and the whole collection 33600 DZD, pending correction of the conflicting supplied totals (4300/33500).
+- Optional phone2 is retained in receipts, admin and Excel exports.
+- Authenticated admin POST creates a separate gift entry, permanently zero-valued. PATCH can change commercial delivery fees (including zero) and recomputes the final total. DELETE requires an explicit confirmation flag and removes the entry from storage. No public API can create gifts or waive delivery.
+- Commercial orders and gifts have separate views. Revenue and sales count completed commercial orders only; produced books count shipped/completed commercial orders plus gifts. Pending/cancelled orders do not count as produced. Deletion is reflected by recalculating from remaining entries.
+- Preview PDFs have been moved out of public to `preview-source/`, excluded from function tracing. The website only exposes the first-ten-page image reader with navigation and zoom; there are no PDF, download or print controls. Browser-visible images can still be captured; this is not DRM. Previously published Git history/deployments can still contain former preview PDFs.

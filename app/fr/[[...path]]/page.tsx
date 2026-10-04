@@ -1,3 +1,4 @@
+import {Offers} from '@/components/offers';
 import { CollectionRoute } from '@/components/catalogue/collection-route';
 import { redirect } from 'next/navigation';
 import { CourseProduct } from '@/components/catalogue/course-product';
@@ -19,7 +20,7 @@ import { site } from '@/lib/content';
 type Params = { path?: string[] };
 export const dynamicParams = false;
 const frenchPaths = [
-  '/', '/courses', '/books',
+  '/', '/courses', '/books', '/offers',
   ...courseYears.map(year => `/courses/year-${year}`), ...courses.map(courseHref),
   ...specialties.flatMap(s => [`/books/${s.slug}`, ...yearsOf(s.slug).map(y => `/books/${s.slug}/year-${y}`)]),
   ...books.map(book => book.href),
@@ -27,7 +28,8 @@ const frenchPaths = [
 export function generateStaticParams() { return frenchPaths.map(path => ({ path: path === '/' ? [] : path.slice(1).split('/') })); }
 
 function pageTitle(path: string) {
-  if (path === '/') return 'Des carnets pour mieux apprendre';
+  if (path === '/') return 'Des livres pour mieux apprendre';
+  if (path === '/offers') return 'Offers — Packs THE WIZ';
   if (path === '/courses') return 'Collection de livres THE WIZ';
   if (path === '/books') return 'Tous les livres';
   const course = courses.find(c => courseHref(c) === path);
@@ -47,6 +49,7 @@ export default async function FrenchPage({ params }: { params: Promise<Params> }
   const path = '/' + ((await params).path ?? []).join('/');
   if (!frenchPaths.includes(path)) notFound();
   if (path === '/') return <div lang="fr"><FrenchHome /></div>;
+  if(path==='/offers')return <Offers locale="fr"/>;
   const parts = path.slice(1).split('/');
   if (parts[0] === 'courses') return <CollectionRoute path={path} locale="fr"/>;
   redirect('/fr/courses');

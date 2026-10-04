@@ -215,3 +215,5 @@
 :lang(ar) { --font-sans: var(--font-arabic), sans-serif; --font-display: var(--font-arabic), sans-serif; font-family: var(--font-arabic), sans-serif; }
 :lang(ar) :is(h1,h2,h3,h4,.type-display,.type-heading,.type-eyebrow) { letter-spacing: normal; line-height: 1.5; }
 :lang(ar) input, :lang(ar) textarea, :lang(ar) select { font-family: var(--font-arabic), sans-serif; }
+
+@media print { #preview { display: none !important; } }

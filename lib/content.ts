@@ -13,7 +13,7 @@ export { formatPrice } from "@/lib/catalogue";
 export const site = {
   name: "The Wiz",
   tagline:
-    "The notebooks built to help medical, pharmacy and dental students study smarter.",
+    "The books built to help medical, pharmacy and dental students study smarter.",
   url: process.env.NEXT_PUBLIC_SITE_URL || process.env.URL || process.env.DEPLOY_PRIME_URL || (githubPages ? "https://aniszemali.github.io/the-wiz" : "https://thewiz.example.com"),
   email: "thewiz.dz@gmail.com",
   instagram: "https://instagram.com/thewiz.dz",
@@ -28,6 +28,7 @@ export const site = {
  */
 export const nav = [
   { label: "Collections", href: "/courses" },
+  { label: "Offers", href: "/offers" },
   { label: "Why", href: "#why" },
   { label: "Inside", href: "#inside" },
   { label: "FAQ", href: "#faq" },
@@ -40,7 +41,7 @@ export const hero = {
     "Premium handwritten summaries.",
     "Clear visual explanations.",
     "Dedicated note pages.",
-    "One notebook per subject, every year.",
+    "One book per subject, every year.",
   ],
   primaryCta: { label: "Order now", href: "#order" },
   secondaryCta: { label: "Browse all books", href: "/books" },
@@ -92,17 +93,17 @@ export const insideFeatures = [
 export const insideSpreads = [
   {
     src: assetPath("/spreads/spread-01.svg"),
-    alt: "Notebook spread showing a structured chapter summary",
+    alt: "Book spread showing a structured chapter summary",
     caption: "Chapter summary — Cardiovascular system",
   },
   {
     src: assetPath("/spreads/spread-02.svg"),
-    alt: "Notebook spread showing an anatomy diagram with labels",
+    alt: "Book spread showing an anatomy diagram with labels",
     caption: "Anatomy plate — Labelled diagram",
   },
   {
     src: assetPath("/spreads/spread-03.svg"),
-    alt: "Notebook spread showing dedicated blank note pages",
+    alt: "Book spread showing dedicated blank note pages",
     caption: "Your pages — Blank, ruled, yours",
   },
 ] as const;
@@ -137,13 +138,13 @@ export const testimonials = [
 
 export const about = {
   quote:
-    "Created by a medical student who wanted a notebook that combined concise summaries with space to build personal understanding.",
+    "Created by a medical student who wanted a book that combined concise summaries with space to build personal understanding.",
   name: "The Wiz",
   role: "Founder — Medical student",
 } as const;
 
 export const product = {
-  kicker: "Notebook",
+  kicker: "Book",
   name: "The Wiz — First Year Medicine",
   edition: "First edition",
   /** Price and page count come from the flagship entry in the catalogue. */
@@ -162,14 +163,14 @@ export const product = {
 
 export const faqs = [
   {
-    question: "What does the notebook include?",
+    question: "What does the book include?",
     answer:
       "Structured handwritten-style summaries for the subject on the cover, with diagrams, schematics and mnemonics — each chapter followed by dedicated blank pages for your own notes, corrections and lecture additions.",
   },
   {
     question: "Which years and specialties are covered?",
     answer:
-      "The series is being written across medicine, pharmacy and dental medicine, year by year and subject by subject. In medicine that means years one to six — the seventh is spent in hospital, so it has no notebook. One edition ships today and the rest are in preparation; you can browse everything and join the list for any of them.",
+      "The series is being written across medicine, pharmacy and dental medicine, year by year and subject by subject. In medicine that means years one to six — the seventh is spent in hospital, so it has no book. One edition ships today and the rest are in preparation; you can browse everything and join the list for any of them.",
   },
   {
     question: "How many pages?",
@@ -196,6 +197,6 @@ export const faqs = [
 export const series = {
   eyebrow: "The series",
   title: "Written year by year.",
-  body: "Each notebook covers one subject of one year. They are released as they are finished, starting with first-year medicine and working outward through the programme — and beyond medicine into pharmacy and dental medicine.",
+  body: "Each book covers one subject of one year. They are released as they are finished, starting with first-year medicine and working outward through the programme — and beyond medicine into pharmacy and dental medicine.",
   cta: { label: "Browse the catalogue", href: "/books" },
 } as const;

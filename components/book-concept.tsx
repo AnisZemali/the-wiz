@@ -7,6 +7,7 @@ const french = [
  ['Un style manuscrit et minimaliste', 'Une typographie inspirée de l’écriture manuscrite, un design minimaliste en noir et blanc et des pages aérées donnent au livre une apparence proche de vos propres notes. Un support de révision personnel, simple et agréable à utiliser.'],
  ['Extra Notes', 'À la fin de chaque livre, une section Extra Notes rassemble des pages de notes vierges supplémentaires. Écrivez librement : informations, rappels, schémas ou tout ce qui n’a pas pu être noté en face des résumés. Le même style minimaliste, noir et blanc, inspiré de l’écriture manuscrite.'],
  ['Une collection qui évolue avec vous', 'MedWIZ — Médecine est la première collection de THE WIZ. D’autres collections viendront ensuite, avec le même principe : transformer les connaissances en livres de travail simples, organisés et agréables à utiliser.'],
+ ['Une vision qui dépasse les frontières', 'The WIZ commence en français, mais notre vision ne s’arrête pas là. À l’avenir, nos collections seront disponibles dans d’autres langues, pour rendre notre méthode de révision accessible à davantage d’étudiants, partout dans le monde.'],
 ];
 const english = [
  ['Course summaries, not full courses', 'Each book brings together clear, structured course summaries based on the Algerian curriculum. Find the essentials of a course without getting lost in endless pages.'],
@@ -15,7 +16,8 @@ const english = [
  ['Built around the Algerian curriculum', 'Books are organized by study year, module and integrated teaching unit (UEI), following the Algerian curriculum in a familiar order.'],
  ['Handwritten style, minimal design', 'Handwriting-inspired typography, black-and-white design and spacious pages give each book the feel of your own notes: a personal, simple and pleasant revision companion.'],
  ['Extra Notes', 'At the end of every book, Extra Notes provides additional blank notes pages. Write freely: information, reminders, diagrams and anything that did not fit beside the summaries. The same minimal, black-and-white, handwritten style continues throughout.'],
- ['A collection that grows with you', 'MedWIZ — Medicine is THE WIZ’s first collection. More collections will follow, sharing the same idea: turning knowledge into simple, organized and enjoyable workbooks.'],
+ ['A collection that grows with you', 'MedWIZ — Medicine is THE WIZ’s first collection. More collections will follow, sharing the same idea: turning knowledge into simple, organized and enjoyable books.'],
+ ['A vision beyond borders', 'THE WIZ begins in French, but our vision goes further. In the future, our collections will be available in other languages, making our revision method accessible to more students around the world.'],
 ];
 export function BookConcept({locale}:{locale:Locale}) {
  const fr=locale==='fr';

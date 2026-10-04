@@ -5,7 +5,7 @@ import pymupdf as fitz
 
 root = Path(__file__).resolve().parent.parent
 for course in json.loads((root / 'lib/courses.generated.json').read_text(encoding='utf-8')):
-    doc = fitz.open(root / 'public' / course['previewUrl'].lstrip('/'))
+    doc = fitz.open(root / 'preview-source' / f"{course['id']}.pdf")
     assert len(doc) == course['previewPages'] <= 10, course['id']
     destination = root / 'public/course-pages' / course['id']
     destination.mkdir(parents=True, exist_ok=True)

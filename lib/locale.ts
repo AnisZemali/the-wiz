@@ -5,7 +5,7 @@ export const isFrenchPath = (path: string) => localeFromPath(path)==='fr';
 export const basePath = (path: string) => path.replace(/^\/(fr|ar)(?=\/|$)/,'').replace(/\/$/,'') || '/';
 export const localizedPath = (path: string, locale: Locale) => locale === 'en' ? path : `/${locale}${path === '/' ? '' : path}`;
 export const tr = (locale:Locale,en:string,fr:string,ar:string) => ({en,fr,ar})[locale];
-export const frenchNav: Record<string, string> = { Collections:'Collections', Why:'Pourquoi', Inside:'À découvrir', FAQ:'FAQ' };
+export const frenchNav: Record<string, string> = { Collections:'Collections', Offers:'Offers', Why:'Pourquoi', Inside:'À découvrir', FAQ:'FAQ' };
 export const frenchYear = (year: number) => `${year}${year === 1 ? 're' : 'e'} année`;
 export const yearName = (year:number,locale:Locale) => tr(locale,`Year ${year}`,frenchYear(year),`السنة ${['','الأولى','الثانية','الثالثة','الرابعة','الخامسة','السادسة'][year]}`);
 export const moduleTerm = (year:number|undefined,locale:Locale) => year===2||year===3||!year ? tr(locale,'Module / UEI','Module / UEI','وحدة / وحدة تعليمية مدمجة') : tr(locale,'Module','Module','وحدة');
