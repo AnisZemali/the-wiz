@@ -154,10 +154,14 @@ export function NotebookCover({
 export function Notebook3D({
   progress,
   className,
+  coverSrc,
+  coverAlt = '',
 }: {
   /** 0 → 1 scroll progress used to rotate the object. */
   progress?: MotionValue<number>;
   className?: string;
+  coverSrc?: string;
+  coverAlt?: string;
 }) {
   const reduced = useReducedMotion();
   const fallback = useScroll().scrollYProgress;
@@ -224,7 +228,7 @@ export function Notebook3D({
               }}
               className="rounded-l-[3px] rounded-r-[14px]"
             >
-              <NotebookCover />
+              {coverSrc ? <img src={coverSrc} alt={coverAlt} width={1000} height={1414} className="h-full w-full rounded-[3px] object-cover" /> : <NotebookCover />}
             </Face>
 
             {/* Back cover */}
