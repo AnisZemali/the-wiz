@@ -8,7 +8,7 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
-import { useRef, type CSSProperties, type ReactNode } from "react";
+import { useRef, useState, type CSSProperties, type ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -156,13 +156,20 @@ export function Notebook3D({
   className,
   coverSrc,
   coverAlt = '',
+  locale = 'en',
 }: {
   /** 0 → 1 scroll progress used to rotate the object. */
   progress?: MotionValue<number>;
   className?: string;
   coverSrc?: string;
   coverAlt?: string;
+  locale?: string;
 }) {
+  const [angle, setAngle] = useState<{x:number;y:number}|null>(null);
+  const drag = useRef<{id:number;x:number;y:number;rx:number;ry:number}|null>(null);
+  const [dragging,setDragging] = useState(false);
+  const hint = locale==='fr'?'Glissez pour tourner · flèches du clavier':locale==='ar'?'اسحب للتدوير · أو استخدم مفاتيح الأسهم':'Drag to rotate · or use arrow keys';
+  const resetLabel = locale==='fr'?'Réinitialiser':locale==='ar'?'إعادة الضبط':'Reset view';
   const reduced = useReducedMotion();
   const fallback = useScroll().scrollYProgress;
   const source = progress ?? fallback;
@@ -201,7 +208,15 @@ export function Notebook3D({
         transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <div className="relative flex h-[calc(var(--bh)*1.25)] items-center justify-center preserve-3d">
+      <div className="relative flex h-[calc(var(--bh)*1.25)] items-center justify-center preserve-3d outline-offset-4 focus-visible:outline-2" tabIndex={0} role="group" aria-label={hint} style={{touchAction:'pan-y',cursor:dragging?'grabbing':'grab'}}
+        onDragStart={e=>e.preventDefault()}
+        onPointerDown={e=>{if(e.button!==0)return;const current=angle??{x:reduced?8:rotateX.get(),y:reduced?-20:rotateY.get()};drag.current={id:e.pointerId,x:e.clientX,y:e.clientY,rx:current.x,ry:current.y};e.currentTarget.setPointerCapture(e.pointerId);setDragging(true)}}
+        onPointerMove={e=>{const d=drag.current;if(!d||d.id!==e.pointerId)return;setAngle({x:Math.max(-45,Math.min(45,d.rx-(e.clientY-d.y)*.3)),y:d.ry+(e.clientX-d.x)*.6})}}
+        onPointerUp={()=>{drag.current=null;setDragging(false)}}
+        onPointerCancel={()=>{drag.current=null;setDragging(false)}}
+        onLostPointerCapture={()=>{drag.current=null;setDragging(false)}}
+        onKeyDown={e=>{if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home'].includes(e.key))return;e.preventDefault();if(e.key==='Home'){setAngle(null);return}const a=angle??{x:reduced?8:rotateX.get(),y:reduced?-20:rotateY.get()};setAngle({x:Math.max(-45,Math.min(45,a.x+(e.key==='ArrowUp'?-10:e.key==='ArrowDown'?10:0))),y:a.y+(e.key==='ArrowRight'?15:e.key==='ArrowLeft'?-15:0)})}}
+      >
         {/* Idle float. */}
         <motion.div
           className="preserve-3d"
@@ -211,7 +226,9 @@ export function Notebook3D({
           <motion.div
             className="relative preserve-3d"
             style={
-              reduced
+              angle
+                ? {rotateX:angle.x,rotateY:angle.y,rotateZ:0,transformStyle:"preserve-3d"}
+                : reduced
                 ? still
                 : { rotateY, rotateX, rotateZ, transformStyle: "preserve-3d" }
             }
@@ -228,7 +245,7 @@ export function Notebook3D({
               }}
               className="rounded-l-[3px] rounded-r-[14px]"
             >
-              {coverSrc ? <img src={coverSrc} alt={coverAlt} width={1000} height={1414} className="h-full w-full rounded-[3px] object-cover" /> : <NotebookCover />}
+              {coverSrc ? <img draggable={false} src={coverSrc} alt={coverAlt} width={1000} height={1414} className="h-full w-full rounded-[3px] object-cover" /> : <NotebookCover />}
             </Face>
 
             {/* Back cover */}
@@ -292,6 +309,7 @@ export function Notebook3D({
           </motion.div>
         </motion.div>
       </div>
+      <div className="relative mt-6 flex flex-wrap items-center justify-center gap-4 text-xs text-ink-56"><p>{hint}</p><button type="button" className="min-h-11 px-3 underline underline-offset-4" onClick={()=>setAngle(null)}>{resetLabel}</button></div>
     </div>
   );
 }
