@@ -169,7 +169,6 @@ export function Notebook3D({
   const drag = useRef<{id:number;x:number;y:number;rx:number;ry:number}|null>(null);
   const [dragging,setDragging] = useState(false);
   const hint = locale==='fr'?'Glissez pour tourner · flèches du clavier':locale==='ar'?'اسحب للتدوير · أو استخدم مفاتيح الأسهم':'Drag to rotate · or use arrow keys';
-  const resetLabel = locale==='fr'?'Réinitialiser':locale==='ar'?'إعادة الضبط':'Reset view';
   const reduced = useReducedMotion();
   const fallback = useScroll().scrollYProgress;
   const source = progress ?? fallback;
@@ -309,7 +308,6 @@ export function Notebook3D({
           </motion.div>
         </motion.div>
       </div>
-      <div className="relative mt-6 flex flex-wrap items-center justify-center gap-4 text-xs text-ink-56"><p>{hint}</p><button type="button" className="min-h-11 px-3 underline underline-offset-4" onClick={()=>setAngle(null)}>{resetLabel}</button></div>
     </div>
   );
 }
