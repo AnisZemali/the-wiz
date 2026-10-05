@@ -75,7 +75,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: "#ffffff",
-  colorScheme: "light",
+  colorScheme: "light dark",
 };
 
 /**
@@ -87,6 +87,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning className={`${spaceGrotesk.variable} ${inter.variable} ${arabic.variable}`}>
+      <head><script dangerouslySetInnerHTML={{__html:"try{var t=localStorage.getItem('wiz-theme');document.documentElement.dataset.theme=t==='dark'||t==='light'?t:matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}catch{document.documentElement.dataset.theme=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}"}} /></head>
       <body className="bg-paper text-ink antialiased">
         <SkipLink />
         <CartProvider><SmoothScroll>
