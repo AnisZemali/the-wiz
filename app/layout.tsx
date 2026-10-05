@@ -4,6 +4,7 @@ import { Inter, Space_Grotesk, Noto_Sans_Arabic } from "next/font/google";
 import { Footer } from "@/components/layout/footer";
 import { Nav } from "@/components/layout/nav";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
+import { PageTransition } from "@/components/providers/page-transition";
 import { SkipLink } from '@/components/layout/skip-link';
 import { flagship } from "@/lib/catalogue";
 import { product, site } from "@/lib/content";
@@ -90,7 +91,7 @@ export default function RootLayout({
         <SkipLink />
         <CartProvider><SmoothScroll>
           <Nav />
-          <main id="main">{children}</main>
+          <main id="main"><PageTransition>{children}</PageTransition></main>
           <Footer />
         </SmoothScroll></CartProvider>
       </body>
