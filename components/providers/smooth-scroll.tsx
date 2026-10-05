@@ -84,27 +84,32 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
   // In-page anchors: eased when Lenis is live, native otherwise.
   useEffect(() => {
     const onClick = (event: MouseEvent) => {
-      if (event.defaultPrevented || event.metaKey || event.ctrlKey) return;
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
 
       const anchor = (event.target as HTMLElement | null)?.closest?.(
-        'a[href^="#"]',
+        'a[href]',
       ) as HTMLAnchorElement | null;
-      const hash = anchor?.getAttribute("href");
+      if (!anchor || anchor.target === '_blank' || anchor.hasAttribute('download')) return;
+      const url = new URL(anchor.href);
+      if (url.origin !== location.origin || url.pathname.replace(/\/$/, '') !== location.pathname.replace(/\/$/, '') || url.search !== location.search) return;
+      const hash = url.hash;
       if (!hash || hash === "#") return;
 
-      const target = document.querySelector(hash);
+      let target: HTMLElement | null = null;
+      try { target = document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return; }
       if (!target) return;
 
       const lenis = lenisRef.current;
-      if (!lenis) return; // let the browser handle it (reduced motion)
+
 
       event.preventDefault();
-      lenis.scrollTo(target as HTMLElement, { offset: -16 });
+      if (lenis) lenis.scrollTo(target, {offset:-96});
+      else window.scrollTo({top:Math.max(0,target.getBoundingClientRect().top+window.scrollY-96),behavior:'instant'});
       history.replaceState(history.state, "", hash);
     };
 
-    document.addEventListener("click", onClick);
-    return () => document.removeEventListener("click", onClick);
+    document.addEventListener("click", onClick, true);
+    return () => document.removeEventListener("click", onClick, true);
   }, []);
 
   const value = useMemo<ScrollLock>(
