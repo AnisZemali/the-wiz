@@ -165,7 +165,7 @@ export function Notebook3D({
   coverAlt?: string;
   locale?: string;
 }) {
-  const [angle, setAngle] = useState<{x:number;y:number}|null>(null);
+  const [angle, setAngle] = useState<{x:number;y:number;z?:number}|null>(null);
   const drag = useRef<{id:number;x:number;y:number;rx:number;ry:number}|null>(null);
   const [dragging,setDragging] = useState(false);
   const hint = locale==='fr'?'Glissez pour tourner · flèches du clavier':locale==='ar'?'اسحب للتدوير · أو استخدم مفاتيح الأسهم':'Drag to rotate · or use arrow keys';
@@ -184,9 +184,19 @@ export function Notebook3D({
   const rotateZ = useTransform(smooth, [0, 1], [-3, 2]);
   const shadowScale = useTransform(smooth, [0, 0.5, 1], [0.94, 1, 0.9]);
 
-  const manualX = useSpring(10, {stiffness:220,damping:30});
-  const manualY = useSpring(-26, {stiffness:220,damping:30});
-  useEffect(()=>{if(angle){manualX.set(angle.x);manualY.set(angle.y)}},[angle,manualX,manualY]);
+  const settle = dragging ? {stiffness:220,damping:30} : {stiffness:24,damping:12};
+  const manualX = useSpring(10, settle);
+  const manualY = useSpring(-26, settle);
+  const manualZ = useSpring(-3, settle);
+  useEffect(()=>{if(angle){manualX.set(angle.x);manualY.set(angle.y);manualZ.set(angle.z??0)}},[angle,manualX,manualY,manualZ]);
+  const release = () => {
+    if (!drag.current) return;
+    drag.current=null;
+    setDragging(false);
+    const homeY=reduced?-20:rotateY.get();
+    const nearestY=homeY+360*Math.round((manualY.get()-homeY)/360);
+    setAngle({x:reduced?8:rotateX.get(),y:nearestY,z:reduced?-2:rotateZ.get()});
+  };
   const still = { rotateY: -20, rotateX: 8, rotateZ: -2 };
 
   return (
@@ -212,11 +222,11 @@ export function Notebook3D({
 
       <div className="relative flex h-[calc(var(--bh)*1.25)] items-center justify-center preserve-3d outline-offset-4 focus-visible:outline-2" tabIndex={0} role="group" aria-label={hint} style={{touchAction:'pan-y',cursor:dragging?'grabbing':'grab'}}
         onDragStart={e=>e.preventDefault()}
-        onPointerDown={e=>{if(e.button!==0)return;const current=angle??{x:reduced?8:rotateX.get(),y:reduced?-20:rotateY.get()};drag.current={id:e.pointerId,x:e.clientX,y:e.clientY,rx:current.x,ry:current.y};e.currentTarget.setPointerCapture(e.pointerId);manualX.jump(current.x);manualY.jump(current.y);setDragging(true)}}
+        onPointerDown={e=>{if(e.button!==0)return;const current=angle&&!reduced?{x:manualX.get(),y:manualY.get()}:angle??{x:reduced?8:rotateX.get(),y:reduced?-20:rotateY.get()};drag.current={id:e.pointerId,x:e.clientX,y:e.clientY,rx:current.x,ry:current.y};e.currentTarget.setPointerCapture(e.pointerId);manualX.jump(current.x);manualY.jump(current.y);setDragging(true)}}
         onPointerMove={e=>{const d=drag.current;if(!d||d.id!==e.pointerId)return;setAngle({x:Math.max(-45,Math.min(45,d.rx-(e.clientY-d.y)*.3)),y:d.ry+(e.clientX-d.x)*.6})}}
-        onPointerUp={()=>{drag.current=null;setDragging(false)}}
-        onPointerCancel={()=>{drag.current=null;setDragging(false)}}
-        onLostPointerCapture={()=>{drag.current=null;setDragging(false)}}
+        onPointerUp={release}
+        onPointerCancel={release}
+        onLostPointerCapture={release}
         onKeyDown={e=>{if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home'].includes(e.key))return;e.preventDefault();if(e.key==='Home'){setAngle(null);return}const a=angle??{x:reduced?8:rotateX.get(),y:reduced?-20:rotateY.get()};setAngle({x:Math.max(-45,Math.min(45,a.x+(e.key==='ArrowUp'?-10:e.key==='ArrowDown'?10:0))),y:a.y+(e.key==='ArrowRight'?15:e.key==='ArrowLeft'?-15:0)})}}
       >
         {/* Idle float. */}
@@ -229,7 +239,7 @@ export function Notebook3D({
             className="relative preserve-3d"
             style={
               angle
-                ? {rotateX:reduced?angle.x:manualX,rotateY:reduced?angle.y:manualY,rotateZ:0,transformStyle:"preserve-3d"}
+                ? {rotateX:reduced?angle.x:manualX,rotateY:reduced?angle.y:manualY,rotateZ:reduced?(angle.z??0):manualZ,transformStyle:"preserve-3d"}
                 : reduced
                 ? still
                 : { rotateY, rotateX, rotateZ, transformStyle: "preserve-3d" }
