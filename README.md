@@ -73,7 +73,7 @@ The trilingual cart saves course IDs and quantities in this browser’s local st
 - Checkout requires first and last names, phone, email and a wilaya. Home delivery requires an address; stopdesk discards the home address from the stored order. Review precedes confirmation; the saved receipt retains all ordered items and amounts.
 - Cart items and delivery selection persist in local storage. Customer contact fields stay in React memory while changing language, and are cleared after success. The protected order store retains the submitted customer data.
 - Admin displays historical price snapshots. Excel CSV uses one row per ordered item (individual book or pack), with order subtotal/delivery/total on the first row only to avoid counting delivery repeatedly. Older orders without prices still display.
-- The header wordmark remains until the owner supplies the circular logo image.
+- The supplied transparent THE WIZ logo appears in the header and footer.
 
 ## V4 offers and administration
 

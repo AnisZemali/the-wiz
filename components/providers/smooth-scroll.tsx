@@ -1,6 +1,7 @@
 "use client";
 
 import Lenis from "lenis";
+import { usePathname } from "next/navigation";
 import {
   createContext,
   useContext,
@@ -29,6 +30,7 @@ export const useScrollLock = () => useContext(ScrollLockContext);
  */
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null);
+  const pathname = usePathname();
   const [, setReady] = useState(false);
 
   useEffect(() => {
@@ -58,6 +60,27 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
+  // The shared layout survives navigation; discard the previous page's
+  // inertial target so it cannot pull the new page back down.
+  useEffect(() => {
+    const reset = () => {
+      const lenis = lenisRef.current;
+      lenis?.resize();
+      let target: HTMLElement | null = null;
+      try {
+        target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+      } catch { /* Invalid fragments fall back to the top. */ }
+      const top = target
+        ? Math.max(0, target.getBoundingClientRect().top + window.scrollY - 96)
+        : 0;
+      if (lenis) lenis.scrollTo(top, { immediate: true, force: true });
+      else window.scrollTo({ top, left: 0, behavior: 'instant' });
+    };
+    reset();
+    const frame = requestAnimationFrame(reset);
+    return () => cancelAnimationFrame(frame);
+  }, [pathname]);
+
   // In-page anchors: eased when Lenis is live, native otherwise.
   useEffect(() => {
     const onClick = (event: MouseEvent) => {
@@ -77,7 +100,7 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
 
       event.preventDefault();
       lenis.scrollTo(target as HTMLElement, { offset: -16 });
-      history.replaceState(null, "", hash);
+      history.replaceState(history.state, "", hash);
     };
 
     document.addEventListener("click", onClick);
