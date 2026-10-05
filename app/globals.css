@@ -226,3 +226,7 @@
 .hero-action-secondary:hover { background:#f5f5f5; border-color:#999; }
 .hero-action:focus-visible { outline:2px solid #0a0a0a; outline-offset:4px; }
 @media(max-width:639px) { .hero-actions { display:grid; grid-template-columns:1fr; } .hero-action { width:100%; } }
+
+.offer-card { transition:border-color .2s, box-shadow .2s; }
+.offer-card:hover { border-color:#999; box-shadow:0 8px 24px #00000006; }
+@media(prefers-reduced-motion:reduce) { .offer-card,.hero-action,.wiz-pdf-cover img { transition:none!important; } }

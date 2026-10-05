@@ -8,7 +8,7 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
-import { useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { useRef, useState, useEffect, type CSSProperties, type ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -184,6 +184,9 @@ export function Notebook3D({
   const rotateZ = useTransform(smooth, [0, 1], [-3, 2]);
   const shadowScale = useTransform(smooth, [0, 0.5, 1], [0.94, 1, 0.9]);
 
+  const manualX = useSpring(10, {stiffness:220,damping:30});
+  const manualY = useSpring(-26, {stiffness:220,damping:30});
+  useEffect(()=>{if(angle){manualX.set(angle.x);manualY.set(angle.y)}},[angle,manualX,manualY]);
   const still = { rotateY: -20, rotateX: 8, rotateZ: -2 };
 
   return (
@@ -209,7 +212,7 @@ export function Notebook3D({
 
       <div className="relative flex h-[calc(var(--bh)*1.25)] items-center justify-center preserve-3d outline-offset-4 focus-visible:outline-2" tabIndex={0} role="group" aria-label={hint} style={{touchAction:'pan-y',cursor:dragging?'grabbing':'grab'}}
         onDragStart={e=>e.preventDefault()}
-        onPointerDown={e=>{if(e.button!==0)return;const current=angle??{x:reduced?8:rotateX.get(),y:reduced?-20:rotateY.get()};drag.current={id:e.pointerId,x:e.clientX,y:e.clientY,rx:current.x,ry:current.y};e.currentTarget.setPointerCapture(e.pointerId);setDragging(true)}}
+        onPointerDown={e=>{if(e.button!==0)return;const current=angle??{x:reduced?8:rotateX.get(),y:reduced?-20:rotateY.get()};drag.current={id:e.pointerId,x:e.clientX,y:e.clientY,rx:current.x,ry:current.y};e.currentTarget.setPointerCapture(e.pointerId);manualX.jump(current.x);manualY.jump(current.y);setDragging(true)}}
         onPointerMove={e=>{const d=drag.current;if(!d||d.id!==e.pointerId)return;setAngle({x:Math.max(-45,Math.min(45,d.rx-(e.clientY-d.y)*.3)),y:d.ry+(e.clientX-d.x)*.6})}}
         onPointerUp={()=>{drag.current=null;setDragging(false)}}
         onPointerCancel={()=>{drag.current=null;setDragging(false)}}
@@ -219,14 +222,14 @@ export function Notebook3D({
         {/* Idle float. */}
         <motion.div
           className="preserve-3d"
-          animate={reduced ? undefined : { y: [0, -14, 0] }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+          animate={reduced ? undefined : dragging||angle ? {y:0} : { y: [0, -8, 0] }}
+          transition={dragging||angle ? {duration:.25} : {duration:7,repeat:Infinity,ease:"easeInOut"}}
         >
           <motion.div
             className="relative preserve-3d"
             style={
               angle
-                ? {rotateX:angle.x,rotateY:angle.y,rotateZ:0,transformStyle:"preserve-3d"}
+                ? {rotateX:reduced?angle.x:manualX,rotateY:reduced?angle.y:manualY,rotateZ:0,transformStyle:"preserve-3d"}
                 : reduced
                 ? still
                 : { rotateY, rotateX, rotateZ, transformStyle: "preserve-3d" }
