@@ -245,6 +245,15 @@ export function Notebook3D({
                 : { rotateY, rotateX, rotateZ, transformStyle: "preserve-3d" }
             }
           >
+            {/* Plastic binding travels with all six faces of the book. */}
+            <div aria-hidden="true" className="wiz-spiral-3d">
+              {Array.from({length:16},(_,i)=><div key={i} className="wiz-spiral-ring" style={{top:`${5+i*6}%`}}>
+                {Array.from({length:24},(_,segment)=>{
+                  const a=segment*Math.PI/12;
+                  return <i key={segment} style={{transform:`translate3d(calc(var(--bd) * ${Math.cos(a)*.68}), 0, calc(var(--bd) * ${Math.sin(a)*.68})) rotateY(${-segment*15}deg)`}}/>;
+                })}
+              </div>)}
+            </div>
             {/* Front cover */}
             <Face
               width="var(--bw)"

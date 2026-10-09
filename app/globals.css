@@ -252,3 +252,7 @@ html[data-theme="dark"] { color-scheme:dark; --color-paper:#141414; --color-ink:
 [data-theme="dark"] .hero-action:focus-visible { outline-color:#f2f2f2; }
 [data-theme="dark"] input,[data-theme="dark"] select,[data-theme="dark"] textarea { background-color:#202020; color:#f2f2f2; }
 @media(max-width:400px) { header nav.shell { padding-inline:12px; gap:6px; } header nav img { width:44px; height:44px; } header nav .theme-toggle { width:34px; height:38px; } }
+/* Rounded black plastic coils, modeled around the book's binding edge. */
+.wiz-spiral-3d { position:absolute; left:calc(var(--bw) * -.5 + 4px); top:calc(var(--bh) * -.5); height:var(--bh); transform-style:preserve-3d; pointer-events:none; }
+.wiz-spiral-ring { position:absolute; transform-style:preserve-3d; }
+.wiz-spiral-ring i { position:absolute; width:calc(var(--bd) * .23); height:5px; margin-left:calc(var(--bd) * -.115); border-radius:999px; background:linear-gradient(180deg,#727272 0%,#242424 30%,#080808 65%,#353535 100%); box-shadow:0 1px 1px #0005; backface-visibility:visible; }
