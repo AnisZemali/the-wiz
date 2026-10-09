@@ -250,7 +250,7 @@ export function Notebook3D({
               {Array.from({length:16},(_,i)=><div key={i} className="wiz-spiral-ring" style={{top:`${5+i*6}%`}}>
                 {Array.from({length:24},(_,segment)=>{
                   const a=segment*Math.PI/12;
-                  return <i key={segment} style={{transform:`translate3d(calc(var(--bd) * ${Math.cos(a)*.68}), 0, calc(var(--bd) * ${Math.sin(a)*.68})) rotateY(${-segment*15}deg)`}}/>;
+                  return <i key={segment} style={{transform:`translate3d(calc(var(--bd) * ${Math.cos(a)*.68}), 0, calc(var(--bd) * ${Math.sin(a)*.68})) rotateY(${-segment*15-90}deg)`}}/>;
                 })}
               </div>)}
             </div>
