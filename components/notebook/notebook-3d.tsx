@@ -264,9 +264,9 @@ export function Notebook3D({
                 // Cover typography is set in em so it scales with the object.
                 fontSize: "calc(var(--bw) * 0.09)",
               }}
-              className="rounded-l-[3px] rounded-r-[14px]"
+              className="rounded-l-[3px] rounded-r-[14px] bg-white"
             >
-              {coverSrc ? <img draggable={false} src={coverSrc} alt={coverAlt} width={1000} height={1414} className="h-full w-full rounded-[3px] object-cover" /> : <NotebookCover />}
+              {coverSrc ? <img draggable={false} src={coverSrc} alt={coverAlt} width={1000} height={1414} className="h-full w-full rounded-[3px] bg-white object-cover" /> : <NotebookCover />}
             </Face>
 
             {/* Back cover */}
